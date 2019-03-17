@@ -5,9 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
-
+    android:fitsSystemWindows="true">            android:onClick="@{handler::onClick}"
 
 
 
@@ -30,7 +28,7 @@
         android:layout_gravity="right"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer" >
 
 
     <RelativeLayout
@@ -41,5 +39,6 @@
     </RelativeLayout>
 
 
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

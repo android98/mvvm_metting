@@ -1,8 +1,14 @@
-package com.example.mvvmmeeting;
+package com.example.mvvmmeeting.Activities;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +18,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TextView;
+
+import com.example.mvvmmeeting.Adapters.ViewPagerAdapter;
+import com.example.mvvmmeeting.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    ImageView btnMenu;
+    FloatingActionButton btnAdd;
+    RecyclerView mainRecycler;
+    LinearLayoutManager mainManager;
+    ViewPager vPager;
+    TableLayout tabLayout;
+    ImageView imgDrawer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +55,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -40,7 +63,59 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        vPager = findViewById(R.id.vPager);
+        setupViewPager();
+
+
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.setupViewPager(vPager);
+        setupIcons();
+
+        btnMenu = findViewById(R.id.btnMenu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(Gravity.RIGHT);
+            }
+        });
+
+        btnAdd = findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+
     }
+
+    private void setupViewPager() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment();
+    }
+
+    private void setupIcons() {
+        LinearLayout tabLinearlayoutAll = (LinearLayout) LayoutInflater.from(this).inflate(
+                R.layout.tab_layout_item, null
+        );
+        TextView txtall = tabLinearlayoutAll.findViewById(R.id.txtTabLayout);
+        ImageView imgAll = tabLinearlayoutAll.findViewById(R.id.imgTabLayout);
+        txtall.setText("کل");
+        imgAll.setImageResource(R.drawable.ic_notes);
+        tabLayout.getTabAt(0).setCustomView(tabLinearlayoutAll);
+
+
+        LinearLayout tabLinearLayoutFavorite = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.tab_layout_item, null);
+        TextView txtfavorite = tabLinearLayoutFavorite.findViewById(R.id.txtTabLayout);
+        ImageView imgfavorite = tabLinearLayoutFavorite.findViewById(R.id.imgTabLayout);
+        txtfavorite.setText("Favorites");
+        imgfavorite.setImageResource(R.drawable.ic_star);
+        tabLayout.getTabAt(1).setCustomView(tabLinearLayoutFavorite);
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -98,4 +173,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
