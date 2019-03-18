@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,8 +23,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mvvmmeeting.Adapters.ViewPagerAdapter;
+import com.example.mvvmmeeting.Fragments.fragment_main_all;
+import com.example.mvvmmeeting.Fragments.fragment_main_favorites;
 import com.example.mvvmmeeting.R;
 
 public class MainActivity extends AppCompatActivity
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerView mainRecycler;
     LinearLayoutManager mainManager;
     ViewPager vPager;
-    TableLayout tabLayout;
+    TabLayout tabLayout;
     ImageView imgDrawer;
 
 
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +58,12 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+
+
+
+*/
+
+
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,11 +76,10 @@ public class MainActivity extends AppCompatActivity
 
 
         vPager = findViewById(R.id.vPager);
-        setupViewPager();
-
+        setUpViewPager();
 
         tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.setupViewPager(vPager);
+        tabLayout.setupWithViewPager(vPager);
         setupIcons();
 
         btnMenu = findViewById(R.id.btnMenu);
@@ -85,15 +94,21 @@ public class MainActivity extends AppCompatActivity
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Intent
+                Toast.makeText(MainActivity.this, "Salam", Toast.LENGTH_SHORT).show();
             }
         });
 
 
     }
 
-    private void setupViewPager() {
+    private void setUpViewPager(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment();
+        adapter.addFragment(new fragment_main_all());
+        adapter.addFragment(new fragment_main_favorites());
+
+        vPager.setAdapter(adapter);
+
     }
 
     private void setupIcons() {
@@ -110,10 +125,9 @@ public class MainActivity extends AppCompatActivity
         LinearLayout tabLinearLayoutFavorite = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.tab_layout_item, null);
         TextView txtfavorite = tabLinearLayoutFavorite.findViewById(R.id.txtTabLayout);
         ImageView imgfavorite = tabLinearLayoutFavorite.findViewById(R.id.imgTabLayout);
-        txtfavorite.setText("Favorites");
+        txtfavorite.setText("علاقه ها ");
         imgfavorite.setImageResource(R.drawable.ic_star);
         tabLayout.getTabAt(1).setCustomView(tabLinearLayoutFavorite);
-
     }
 
 

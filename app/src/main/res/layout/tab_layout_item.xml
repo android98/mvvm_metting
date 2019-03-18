@@ -13,11 +13,11 @@
         android:layout_height="22dp"
         android:tint="@color/colorWhite" />
 
-    <com.example.mehrdad.meeting.BaseActivity.CustomTextViewIranSans
+    <TextView
         android:id="@+id/txtTabLayout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:textColor="@color/White"
+        android:textColor="@color/colorWhite"
         android:layout_marginLeft="8dp"
         android:gravity="center"
         android:textSize="16sp"/>
