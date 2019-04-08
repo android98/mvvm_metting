@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
+
         <variable
-            name="Adapter"
-            type="com.example.mvvmmeeting.Recycler_Adapter_Show_Meeting">
-        </variable>
+            name="myAdapter"
+            type="com.example.mvvmmeeting.Recycler_Adapter_Show_Meeting" />
     </data>
 
-<FrameLayout
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment_main_all">
+    tools:context=".test">
 
-    <!-- TODO: Update blank fragment layout -->
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/mainRecycler"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:adapter="@{Adapter}"
         android:layout_height="match_parent"
+        android:adapter="@{myAdapter}"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>
+
+</android.support.constraint.ConstraintLayout>
 </layout>

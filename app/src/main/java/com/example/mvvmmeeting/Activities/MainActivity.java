@@ -3,7 +3,6 @@ package com.example.mvvmmeeting.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,12 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mvvmmeeting.Adapters.ViewPagerAdapter;
-import com.example.mvvmmeeting.Fragments.fragment_main_all;
+import com.example.mvvmmeeting.fragment_main_all;
 import com.example.mvvmmeeting.Fragments.fragment_main_favorites;
 import com.example.mvvmmeeting.R;
 

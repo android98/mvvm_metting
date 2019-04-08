@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="model"
+            type="com.example.mvvmmeeting.MeetingModel">
+        </variable>
+        <variable
+            name="ItemClick"
+            type="com.example.mvvmmeeting.MeetingClickListener">
+        </variable>
+    </data>
+
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="18dp"
     android:layout_marginTop="8dp"
+    android:onClick="@{()->ItemClick.meetingClicked(model)}"
     android:layout_marginRight="18dp"
     android:orientation="vertical">
 
@@ -29,6 +44,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="18dp"
                 android:id="@+id/meetingName"
+                android:text="@{model.meetingName}"
                 android:textColor="@color/colorBlack"
                 android:textSize="16dp" />
 
@@ -77,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="2dp"
-                    android:text="1397/4/4"
+                    android:text="@{model.meetingDate}"
                     android:textSize="12dp" />
 
             </LinearLayout>
@@ -90,7 +106,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="16dp"
-                android:text="18:18"
+                android:text="@{model.meetingTime}"
                 android:textSize="12dp" />
 
             <ImageView
@@ -126,3 +142,4 @@
 
 
 </LinearLayout>
+</layout>

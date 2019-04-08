@@ -4,12 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
-import android.content.Intent;
-
-import com.example.mvvmmeeting.Activities.AddMeetingActivity;
-import com.example.mvvmmeeting.Models.MeetingModel;
-
-import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 
 public class AddMeetingViewModel extends ViewModel {
 

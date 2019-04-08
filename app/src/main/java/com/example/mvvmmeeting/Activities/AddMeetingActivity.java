@@ -19,7 +19,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 
-import com.example.mvvmmeeting.Models.MeetingModel;
+import com.example.mvvmmeeting.MeetingModel;
 import com.example.mvvmmeeting.R;
 import com.example.mvvmmeeting.AddMeetingViewModel;
 import com.example.mvvmmeeting.Tools.Utilities;

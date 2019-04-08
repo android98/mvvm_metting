@@ -1,4 +1,4 @@
-package com.example.mvvmmeeting.Models;
+package com.example.mvvmmeeting;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,6 +14,7 @@ import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class MeetingModel extends RealmObject {
+
     @PrimaryKey
     private int meetingId;
     public String meetingName,meetingInformation,meetingTime,closingMeetingTime,meetingDate;
@@ -27,7 +28,7 @@ public class MeetingModel extends RealmObject {
     }
 
 
-    public MeetingModel(int meetingId, String meetingName, String meetingInformation, String meetingTime, String closingMeetingTime, String meetingDate, Date meetingClosingDat, double meetinglat, double meetingLng) {
+   /* public MeetingModel(int meetingId, String meetingName, String meetingInformation, String meetingTime, String closingMeetingTime, String meetingDate, Date meetingClosingDat, double meetinglat, double meetingLng) {
 
         this.meetingId = meetingId;
         this.meetingName = meetingName;
@@ -38,7 +39,7 @@ public class MeetingModel extends RealmObject {
         this.meetingClosingDat = meetingClosingDat;
         this.meetinglat = meetinglat;
         this.meetingLng = meetingLng;
-    }
+    }*/
 
     public MeetingModel() {
     }
