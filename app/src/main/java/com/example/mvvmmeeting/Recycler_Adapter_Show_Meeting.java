@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
 
         ViewDataBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
                 R.layout.recycler_showmeetings, viewGroup, false);
+
+
         return new CustomView(dataBinding);
     }
 
@@ -36,7 +39,7 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
     public void onBindViewHolder(@NonNull CustomView customView, int i) {
         MeetingModel meetingModel = models.get(i);
         customView.bind(meetingModel);
-
+        //customView.viewDataBinding.setVariable(BR.model, meetingModel);
     }
 
     @Override
@@ -58,9 +61,6 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
             viewDataBinding.executePendingBindings();
         }
 
-        public void meetingClicked(MeetingModel model) {
-            Toast.makeText(context, "Clicked"+
-                    model.meetingName, Toast.LENGTH_SHORT).show();
-        }
+
     }
 }

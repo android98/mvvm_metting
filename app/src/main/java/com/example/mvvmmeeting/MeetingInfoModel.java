@@ -1,42 +1,14 @@
 package com.example.mvvmmeeting;
 
-import android.databinding.BindingAdapter;
-
 import java.util.Date;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+public class MeetingInfoModel {
 
-public class MeetingModel extends RealmObject {
 
-    @PrimaryKey
     private int meetingId;
     public String meetingName,meetingInformation,meetingTime,closingMeetingTime,meetingDate;
-    public Date meetingClosingDat;
+    public Date meetingClosingDate;
     private double meetinglat,meetingLng;
-
-    public MeetingModel(String meetingname, String meetinginformation , String meetingdate) {
-        meetingName = meetingname;
-        meetingInformation = meetinginformation;
-        meetingDate = meetingdate;
-    }
-
-
-   /* public MeetingModel(int meetingId, String meetingName, String meetingInformation, String meetingTime, String closingMeetingTime, String meetingDate, Date meetingClosingDat, double meetinglat, double meetingLng) {
-
-        this.meetingId = meetingId;
-        this.meetingName = meetingName;
-        this.meetingInformation = meetingInformation;
-        this.meetingTime = meetingTime;
-        this.closingMeetingTime = closingMeetingTime;
-        this.meetingDate = meetingDate;
-        this.meetingClosingDat = meetingClosingDat;
-        this.meetinglat = meetinglat;
-        this.meetingLng = meetingLng;
-    }*/
-
-    public MeetingModel() {
-    }
 
     public int getMeetingId() {
         return meetingId;
@@ -86,12 +58,12 @@ public class MeetingModel extends RealmObject {
         this.meetingDate = meetingDate;
     }
 
-    public Date getMeetingClosingDat() {
-        return meetingClosingDat;
+    public Date getMeetingClosingDate() {
+        return meetingClosingDate;
     }
 
-    public void setMeetingClosingDat(Date meetingClosingDat) {
-        this.meetingClosingDat = meetingClosingDat;
+    public void setMeetingClosingDate(Date meetingClosingDate) {
+        this.meetingClosingDate = meetingClosingDate;
     }
 
     public double getMeetinglat() {

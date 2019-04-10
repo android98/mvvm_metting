@@ -100,7 +100,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable error) {
                         Log.d("abdc", "execute: "+"On Errroooor");
-                        Toast.makeText(AddMeetingActivity.this, "مشکلی ه وجود امده است ! ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddMeetingActivity.this, "مشکلی به وجود امده است ! ", Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
                     }
                 });
@@ -171,7 +171,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     public void getDate() {
         btnGetDate = findViewById(R.id.btnGetDate);
         txtShowDate = findViewById(R.id.txtShowDate);
-        btnGetDate.setOnClickListener(new View.OnClickListener() {
+        btnGetDate.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PersianDatePickerDialog pickerDialog = new PersianDatePickerDialog(AddMeetingActivity.this)
