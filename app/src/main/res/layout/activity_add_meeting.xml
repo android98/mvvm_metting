@@ -259,8 +259,51 @@
                         android:layout_marginBottom="12dp" />
 
                 </LinearLayout>
-
             </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:elevation="4dp"
+                    android:id="@+id/relativeMap"
+                    android:layout_marginTop="18dp"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:id="@+id/frameShowMap"
+                        android:layout_marginTop="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/google"
+                            android:scaleType="fitXY"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:background="@color/TranscolorBlack"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="موقعیت مکان را بر روی نقشه مشخص کنید"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorWhite"/>
+
+                        </RelativeLayout>
+
+                    </FrameLayout>
+
+                </RelativeLayout>
+
+
 
 
             <RelativeLayout

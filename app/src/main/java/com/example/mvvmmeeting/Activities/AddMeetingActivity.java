@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.location.Location;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,12 +24,15 @@ import android.widget.Toast;
 import com.example.mvvmmeeting.MeetingModel;
 import com.example.mvvmmeeting.R;
 import com.example.mvvmmeeting.AddMeetingViewModel;
+import com.example.mvvmmeeting.Tools.DialogFragmentShowMap;
 import com.example.mvvmmeeting.Tools.Utilities;
 import com.example.mvvmmeeting.databinding.ActivityAddMeetingBinding;
 
 import java.util.Calendar;
 import java.util.Date;
 
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
 import io.realm.Realm;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
@@ -41,6 +46,15 @@ public class AddMeetingActivity extends AppCompatActivity {
     public Date meetingDate = null;
     public String meetingTime = "";
     public PersianCalendar calendar;
+    RelativeLayout relativeMap;
+
+
+    public static double userLat = 0.0;
+    public static double userLng = 0.0;
+    public static double meetingLat = 0.0;
+    public static double meetingLng = 0.0;
+    public static boolean userLocation = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +71,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding.setAddMeeting(model);
         binding.setLifecycleOwner(this);
 
+
         getDate();
         getTime();
+        getUserLocation();
+        getLocation();
         AddMeeting();
-
 
 
         model.getMeetingModelLiveData().observe(this, new Observer<MeetingModel>() {
@@ -84,12 +100,14 @@ public class AddMeetingActivity extends AppCompatActivity {
                         model.setMeetingInformation(meetingModel.getMeetingInformation());
                         model.setMeetingDate(String.valueOf(meetingDate));
                         model.setMeetingTime(meetingTime);
-                        Log.d("abdc", "execute: "+"ok");
+                        model.setMeetinglat(meetingLat);
+                        model.setMeetingLng(meetingLng);
+                        Log.d("abdc", "execute: " + "ok");
                     }
                 }, new Realm.Transaction.OnSuccess() {
                     @Override
                     public void onSuccess() {
-                        Log.d("abdc", "execute: "+"onSucceesss");
+                        Log.d("abdc", "execute: " + "onSucceesss");
                         Toast.makeText(AddMeetingActivity.this, "درج شد ", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddMeetingActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -99,7 +117,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 }, new Realm.Transaction.OnError() {
                     @Override
                     public void onError(Throwable error) {
-                        Log.d("abdc", "execute: "+"On Errroooor");
+                        Log.d("abdc", "execute: " + "On Errroooor");
                         Toast.makeText(AddMeetingActivity.this, "مشکلی به وجود امده است ! ", Toast.LENGTH_SHORT).show();
                         error.printStackTrace();
                     }
@@ -114,7 +132,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     }
 
-    public void AddMeeting(){
+    public void AddMeeting() {
 
     }
 
@@ -124,7 +142,7 @@ public class AddMeetingActivity extends AppCompatActivity {
             Number number = realm.where(MeetingModel.class).max("meetingId");
             if (number != null) {
                 return number.intValue() + 1;
-            }else {
+            } else {
                 return 0;
             }
 
@@ -171,7 +189,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     public void getDate() {
         btnGetDate = findViewById(R.id.btnGetDate);
         txtShowDate = findViewById(R.id.txtShowDate);
-        btnGetDate.setOnClickListener( new View.OnClickListener() {
+        btnGetDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PersianDatePickerDialog pickerDialog = new PersianDatePickerDialog(AddMeetingActivity.this)
@@ -203,4 +221,33 @@ public class AddMeetingActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void getLocation() {
+        relativeMap = findViewById(R.id.relativeMap);
+        relativeMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DialogFragmentShowMap().show(getSupportFragmentManager(), null);
+            }
+        });
+    }
+
+    public void getUserLocation() {
+        if (Utilities.checkLocationPermission(this)) {
+            Log.i("test123","permission granted");
+
+            SmartLocation.with(this).location()
+                    .start(new OnLocationUpdatedListener() {
+                        @Override
+                        public void onLocationUpdated(Location location) {
+                            userLat = location.getLatitude();
+                            userLng = location.getLongitude();
+                            Log.i("test123", String.valueOf(userLat));
+                            Log.i("test123", String.valueOf(userLng));
+
+                        }
+                    });
+        }
+    }
+
 }
