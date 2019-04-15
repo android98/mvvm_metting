@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,10 @@ public class fragment_main_all extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_fragment_main_all, container, false);
+
+
+
+
        /* List<MeetingModel> dataModelList = new ArrayList<>();
         dataModelList.add(new MeetingModel("pooia ", "maleki", "1980/10/8"));
         dataModelList.add(new MeetingModel("asdasfdsf ", "sdasdasd","1990/08/08"));
@@ -79,9 +84,21 @@ public class fragment_main_all extends Fragment {
             //archieMeeting.add(model);
             //Log.d("realm", "onCreateView: " + archieMeeting.get(2).getMeetingName());
 
-            Recycler_Adapter_Show_Meeting meeting = new Recycler_Adapter_Show_Meeting(results
-                    ,getActivity());
-            binding.setAdapter(meeting);
+        Recycler_Adapter_Show_Meeting meeting = new Recycler_Adapter_Show_Meeting(results
+                ,getActivity());
+        binding.setAdapter(meeting);
+
+
+
+/*
+            binding.mainRecycler.setAdapter(new Recycler_Adapter_Show_Meeting(
+                    results, new Recycler_Adapter_Show_Meeting.OnItemClickListener() {
+                @Override
+                public void onItemClick(MeetingModel item) {
+                    Toast.makeText(context, "Salam"+item.meetingName, Toast.LENGTH_SHORT).show();
+                }
+            }
+            ));*/
 
 
 

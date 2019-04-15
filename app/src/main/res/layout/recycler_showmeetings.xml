@@ -26,6 +26,7 @@
     <LinearLayout
         android:id="@+id/btnMeetingDetails"
         android:layout_width="match_parent"
+        android:onClick="@{()->ItemClicked.meetingClicked(model)}"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical">
@@ -43,7 +44,6 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="18dp"
                 android:id="@+id/meetingName"
-                android:onClick="@{()->ItemClicked.meetingClicked(model)}"
                 android:text="@{model.meetingName}"
                 android:textColor="@color/colorBlack"
                 android:textSize="16dp" />

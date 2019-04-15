@@ -5,6 +5,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 
+import com.example.mvvmmeeting.MeetingModel;
+
 import java.util.Date;
 
 public class AddMeetingViewModel extends ViewModel {

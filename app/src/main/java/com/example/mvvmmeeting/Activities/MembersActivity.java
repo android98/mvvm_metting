@@ -20,15 +20,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mvvmmeeting.Adapters.Recycler_Adapter_Members;
-import com.example.mvvmmeeting.Models.MemberModel;
+import com.example.mvvmmeeting.Recycler_Adapter_Members;
+import com.example.mvvmmeeting.MemberModel;
 import com.example.mvvmmeeting.R;
 
 import io.realm.Realm;

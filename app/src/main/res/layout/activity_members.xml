@@ -10,6 +10,8 @@
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
         android:layout_height="?attr/actionBarSize">
 
         <RelativeLayout

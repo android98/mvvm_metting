@@ -19,8 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
-
 import com.example.mvvmmeeting.MeetingModel;
 import com.example.mvvmmeeting.R;
 import com.example.mvvmmeeting.AddMeetingViewModel;

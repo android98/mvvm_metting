@@ -1,19 +1,19 @@
-package com.example.mvvmmeeting.Models;
+package com.example.mvvmmeeting;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class MemberModel extends RealmObject {
     @PrimaryKey
-    private int memberId;
+    public int memberId;
 
-    private int parentId;
+    public int parentId;
 
-    private String memberName;
+    public String memberName;
 
-    private String memberNumber;
+    public String memberNumber;
 
-    private boolean memberPeresent;
+    public boolean memberPeresent;
 
     public int getParentId() {
         return parentId;

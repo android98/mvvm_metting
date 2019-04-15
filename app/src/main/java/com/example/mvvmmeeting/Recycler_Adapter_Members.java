@@ -1,10 +1,13 @@
-package com.example.mvvmmeeting.Adapters;
+package com.example.mvvmmeeting;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mvvmmeeting.Activities.MembersActivity;
-import com.example.mvvmmeeting.Models.MemberModel;
-import com.example.mvvmmeeting.R;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -45,6 +46,8 @@ public class Recycler_Adapter_Members extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(@NonNull Recycler_Adapter_Members.myViewHolder myViewHolder, final int i) {
+
+
         myViewHolder.txtMemberName.setText(members.get(i).getMemberName());
         myViewHolder.linearMember.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,10 +118,11 @@ public class Recycler_Adapter_Members extends RecyclerView.Adapter<
 
     public class myViewHolder extends RecyclerView.ViewHolder{
 
+
         TextView txtMemberName;
         LinearLayout linearMember;
 
-        public myViewHolder(@NonNull View itemView) {
+        public myViewHolder(@Nullable View itemView) {
             super(itemView);
             txtMemberName = itemView.findViewById(R.id.txtMemberName);
             linearMember = itemView.findViewById(R.id.linearMember);

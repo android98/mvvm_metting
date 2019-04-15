@@ -6,7 +6,9 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -19,7 +21,7 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
     Context context;
 
 
-    public Recycler_Adapter_Show_Meeting(List<MeetingModel> models, Context context) {
+    public Recycler_Adapter_Show_Meeting(List<MeetingModel> models,Context context) {
         this.models = models;
         context = context;
     }
@@ -30,15 +32,18 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
 
         ViewDataBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
                 R.layout.recycler_showmeetings, viewGroup, false);
-
-
         return new CustomView(dataBinding);
+
+
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomView customView, int i) {
         MeetingModel meetingModel = models.get(i);
         customView.bind(meetingModel);
+        
+
         //customView.viewDataBinding.setVariable(BR.model, meetingModel);
     }
 
@@ -61,6 +66,14 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
             viewDataBinding.executePendingBindings();
         }
 
-
     }
+
+
+    public void meetingClicked(MeetingModel meetingModel) {
+        Log.d("meeting", "meetingClicked: " + meetingModel.meetingName.toString());
+        Log.d("meeting", "meetingClicked: " + meetingModel.meetingTime);
+        Log.d("meeting", "meetingClicked: " + meetingModel.meetingDate);
+        Log.d("meeting", "meetingClicked: " + meetingModel.meetingInformation);
+    }
+
 }
