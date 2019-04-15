@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_garbage"
+            android:padding="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:tint="@color/colorGrayIcon"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="اطلاعات کاربر"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+            android:layout_marginRight="16dp"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="نام"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="16sp"
+        android:gravity="right"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="پوریا"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="26dp"
+        android:textSize="16sp"
+        android:gravity="right"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="شماره تماس"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="16sp"
+        android:gravity="right"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/txtNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="۰۹۳۵۳۴۹۲۵۵۰"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="26dp"
+        android:textSize="16sp"
+        android:gravity="right"
+        android:layout_marginBottom="12dp"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorGrayIcon"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btnCall"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_call"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"/>
+
+
+        <ImageView
+            android:id="@+id/btnMessage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:src="@drawable/ic_message"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -38,6 +38,8 @@ import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 public class AddMeetingActivity extends AppCompatActivity {
 
     public LinearLayout btnGetDate, btnGetTime;
@@ -47,6 +49,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     public String meetingTime = "";
     public PersianCalendar calendar;
     RelativeLayout relativeMap;
+    LinearLayout btnGetMembers;
+
 
 
     public static double userLat = 0.0;
@@ -76,6 +80,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         getTime();
         getUserLocation();
         getLocation();
+        getMembers();
         AddMeeting();
 
 
@@ -130,6 +135,20 @@ public class AddMeetingActivity extends AppCompatActivity {
         model.OnBtnGetDateClick();
 
 
+    }
+
+    private void getMembers() {
+        btnGetMembers = findViewById(R.id.btnGetMembers);
+        btnGetMembers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddMeetingActivity.this, MembersActivity.class);
+                Realm realm = Realm.getDefaultInstance();
+                int parentId = getNextKey(realm);
+                intent.putExtra("parentId", parentId);
+                startActivity(intent);
+            }
+        });
     }
 
     public void AddMeeting() {
@@ -248,6 +267,15 @@ public class AddMeetingActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(AddMeetingActivity.this,MainActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+        finish();
+        startActivity(intent);
     }
 
 }
