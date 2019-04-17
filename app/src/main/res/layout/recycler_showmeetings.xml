@@ -8,7 +8,7 @@
             type="com.example.mvvmmeeting.MeetingModel">
         </variable>
         <variable
-            name="ItemClicked"
+            name="itemClickListener"
             type="com.example.mvvmmeeting.MeetingClickListener">
         </variable>
     </data>
@@ -17,6 +17,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:onClick="@{() -> itemClickListener.Clicked(model)}"
     android:layout_marginLeft="18dp"
     android:layout_marginTop="8dp"
     android:layout_marginRight="18dp"
@@ -26,7 +27,6 @@
     <LinearLayout
         android:id="@+id/btnMeetingDetails"
         android:layout_width="match_parent"
-        android:onClick="@{()->ItemClicked.meetingClicked(model)}"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical">

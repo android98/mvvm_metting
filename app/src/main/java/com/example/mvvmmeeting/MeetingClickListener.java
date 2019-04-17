@@ -1,5 +1,5 @@
 package com.example.mvvmmeeting;
 
 public interface MeetingClickListener {
-    void meetingClicked(MeetingModel model);
+    public void Clicked(MeetingModel model);
 }

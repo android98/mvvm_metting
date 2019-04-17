@@ -44,8 +44,6 @@ public class fragment_main_all extends Fragment {
                 R.layout.fragment_fragment_main_all, container, false);
 
 
-
-
        /* List<MeetingModel> dataModelList = new ArrayList<>();
         dataModelList.add(new MeetingModel("pooia ", "maleki", "1980/10/8"));
         dataModelList.add(new MeetingModel("asdasfdsf ", "sdasdasd","1990/08/08"));
@@ -84,9 +82,9 @@ public class fragment_main_all extends Fragment {
             //archieMeeting.add(model);
             //Log.d("realm", "onCreateView: " + archieMeeting.get(2).getMeetingName());
 
-        Recycler_Adapter_Show_Meeting meeting = new Recycler_Adapter_Show_Meeting(results
-                ,getActivity());
-        binding.setAdapter(meeting);
+            Recycler_Adapter_Show_Meeting meeting = new Recycler_Adapter_Show_Meeting(results
+                    , getActivity());
+            binding.setAdapter(meeting);
 
 
 

@@ -103,8 +103,11 @@ public class AddMeetingActivity extends AppCompatActivity {
                         model.setMeetingInformation(meetingModel.getMeetingInformation());
                         model.setMeetingDate(String.valueOf(meetingDate));
                         model.setMeetingTime(meetingTime);
-                        model.setMeetinglat(meetingLat);
-                        model.setMeetingLng(meetingLng);
+
+                        if (AddMeetingActivity.userLocation) {
+                            model.setMeetinglat(AddMeetingActivity.meetingLat);
+                            model.setMeetingLng(AddMeetingActivity.meetingLng);
+                        }
                         Log.d("abdc", "execute: " + "ok");
                     }
                 }, new Realm.Transaction.OnSuccess() {
@@ -181,18 +184,24 @@ public class AddMeetingActivity extends AppCompatActivity {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(AddMeetingActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            public void onTimeSet(TimePicker view, int i, int i1) {
                                 String min = "";
-                                String hour = "";
-                                if (hourOfDay < 10) {
-                                    min = "0" + String.valueOf(hourOfDay);
+                                String hou = "";
+                                if (i < 10) {
+                                    min = "0" + String.valueOf(i);
                                 } else {
-                                    min = String.valueOf(hourOfDay);
+                                    min = String.valueOf(i);
                                 }
-                                if (minute < 10) {
-                                    hour = "0" + String.valueOf(minute);
+
+
+
+                                if (i1 < 10) {
+                                    hou = "0" + String.valueOf(i1);
                                 }
-                                meetingTime = min + ":" + hour;
+                                else {
+                                    hou = String.valueOf(i1);
+                                }
+                                meetingTime = min + ":" + hou;
                                 txtShowTime.setText(meetingTime);
                             }
                         }, hour, minute, true);
@@ -225,7 +234,6 @@ public class AddMeetingActivity extends AppCompatActivity {
 
                             @Override
                             public void onDismissed() {
-                                Toast.makeText(AddMeetingActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
                             }
                         });
                 if (meetingDate != null) {

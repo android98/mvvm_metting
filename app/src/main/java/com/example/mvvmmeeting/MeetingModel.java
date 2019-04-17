@@ -1,7 +1,5 @@
 package com.example.mvvmmeeting;
 
-import android.databinding.BindingAdapter;
-
 import java.util.Date;
 
 import io.realm.RealmObject;
@@ -15,15 +13,7 @@ public class MeetingModel extends RealmObject {
     public Date meetingClosingDat;
     private double meetinglat,meetingLng;
 
-    public MeetingModel(String meetingname, String meetinginformation , String meetingdate) {
-        meetingName = meetingname;
-        meetingInformation = meetinginformation;
-        meetingDate = meetingdate;
-    }
-
-
-   /* public MeetingModel(int meetingId, String meetingName, String meetingInformation, String meetingTime, String closingMeetingTime, String meetingDate, Date meetingClosingDat, double meetinglat, double meetingLng) {
-
+    public MeetingModel(int meetingId, String meetingName, String meetingInformation, String meetingTime, String closingMeetingTime, String meetingDate, Date meetingClosingDat, double meetinglat, double meetingLng) {
         this.meetingId = meetingId;
         this.meetingName = meetingName;
         this.meetingInformation = meetingInformation;
@@ -33,7 +23,14 @@ public class MeetingModel extends RealmObject {
         this.meetingClosingDat = meetingClosingDat;
         this.meetinglat = meetinglat;
         this.meetingLng = meetingLng;
-    }*/
+    }
+
+
+    public MeetingModel(String meetingName, String meetingInformation, String meetingDate) {
+        this.meetingName = meetingName;
+        this.meetingInformation = meetingInformation;
+        this.meetingDate = meetingDate;
+    }
 
     public MeetingModel() {
     }
