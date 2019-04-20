@@ -1,8 +1,12 @@
 package com.example.mvvmmeeting.Activities;
 
+import android.Manifest;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +48,8 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     LinearLayout btnGetTime;
     LinearLayout btnGetClossingTime;
     LinearLayout btnGetMembers;
+    LinearLayout btnAttachImage;
+
 
 
 
@@ -56,6 +62,12 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
     public static double meetingLat = 0.0;
     public static double meetingLng = 0.0;
+
+
+    private int RECORD_AUDIO_REQUEST_CODE =123 ;
+    private int PICK_IMAGE_REQUEST_CODE = 321 ;
+    private int READ_STORAGE_REQUEST_CODE = 453;
+    private static final int ACCESS_CONTATC_REQUEST_CODE = 101;
 
     String meetingDate = "";
     Date meetingClosingDate = null;
@@ -73,6 +85,9 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         Log.d("orderid", "onCreate: " + this.orderID);
         GetMeetingInfoFromRealm(orderID);
         Utilities.getPermission(MeetingDetailsActivity.this);
+
+
+        getMembers();
 
     }
 
@@ -390,6 +405,43 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         });
     }
 
+    private void AttachImages() {
+        btnAttachImage = findViewById(R.id.btnAttachImage);
+        btnAttachImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int currentAPIVersion = Build.VERSION.SDK_INT;
+
+                if ( currentAPIVersion >= android.os.Build.VERSION_CODES.M ){
+
+                    if (ContextCompat.checkSelfPermission(MeetingDetailsActivity.this,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED )
+                    {
+                        requestPermissions( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                                ,PICK_IMAGE_REQUEST_CODE);
+                    }else {
+                        Intent intent = new Intent(MeetingDetailsActivity.
+                                this,AttachImageActivity.class);
+                        if ( orderID != -1 ){
+
+                            intent.putExtra("parentId",orderID);
+                            startActivity(intent);
+                        }
+                    }
+                }else {
+                    Intent intent = new Intent(MeetingDetailsActivity.this,AttachImageActivity.class);
+                    if ( orderID != -1 ){
+
+                        intent.putExtra("parentId",orderID);
+                        startActivity(intent);
+                    }
+                }
+
+
+            }
+        });
+    }
 
 
     private void getMembers(){

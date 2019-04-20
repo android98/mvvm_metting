@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/round_layout"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="آیا این تصویر پاک شود؟"
+        android:textSize="18sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="18dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:layoutDirection="ltr">
+
+
+        <TextView
+            android:id="@+id/btnYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="بله"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginLeft="22dp"
+            android:clickable="true"
+            android:textColor="@color/colorBlack"
+            android:paddingLeft="22dp"
+            android:paddingRight="22dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"/>
+
+
+        <TextView
+            android:id="@+id/btnNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="خیر"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_marginLeft="18dp"
+            android:clickable="true"
+            android:textColor="@color/colorBlack"
+            android:paddingLeft="22dp"
+            android:paddingRight="22dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+
+
+</LinearLayout>

@@ -25,7 +25,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MeetingDetailsActivity"></activity>
+        <activity android:name=".Activities.FullScreenAttachImageActivity"></activity>
+        <activity android:name=".Activities.AttachImageActivity" />
+        <activity android:name=".Activities.PresentMembersActivity" />
+        <activity android:name=".Activities.MeetingDetailsActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
