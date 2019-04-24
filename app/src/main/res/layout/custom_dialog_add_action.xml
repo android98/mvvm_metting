@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="افزودن اقدام جدید"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorWhite"/>
+
+        <ImageView
+            android:id="@+id/btnSaveAction"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_check_mark"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="عنوان"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="18sp"/>
+
+    <EditText
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/colorBlack"
+        android:paddingBottom="18dp" />
+
+    <LinearLayout
+        android:id="@+id/btnGetContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layoutDirection="rtl"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="انجام دهنده" />
+
+        <TextView
+            android:id="@+id/txtShowContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:textColor="@color/colorBlack"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnGetDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layoutDirection="rtl"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="تاریج تحویل" />
+
+        <TextView
+            android:id="@+id/txtShowDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:textColor="@color/colorBlack"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+</LinearLayout>

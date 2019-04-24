@@ -53,6 +53,8 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     LinearLayout btnAttachImage;
     LinearLayout btnAttachFile;
     LinearLayout btnRecodeVoice;
+    LinearLayout btnActions;
+
 
 
 
@@ -94,6 +96,40 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         AttachImages();
         AttachFile();
         RecordingVoice();
+        GetActions();
+    }
+
+    private void GetActions() {
+
+        btnActions = findViewById(R.id.btnActions);
+        btnActions.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+
+
+                if (ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED
+                        && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_GRANTED ){
+                    Intent intent = new Intent(MeetingDetailsActivity.this,ActionsActivity.class);
+                    intent.putExtra("parentId",orderID);
+                    startActivity(intent);
+                }else getPermissionToAccessContact();
+
+
+            }
+        });
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void getPermissionToAccessContact(){
+
+        if (ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED ){
+
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS},
+                    ACCESS_CONTATC_REQUEST_CODE);
+        }
     }
 
     private void RecordingVoice() {

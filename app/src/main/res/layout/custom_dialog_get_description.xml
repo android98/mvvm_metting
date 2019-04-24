@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_check_mark"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="افزودن توضیح جدید:"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="18sp"/>
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/colorBlack"
+        android:paddingBottom="18dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
+</LinearLayout>

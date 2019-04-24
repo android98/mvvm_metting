@@ -297,7 +297,6 @@ public class RecordVoiceActivity extends AppCompatActivity implements View.OnCli
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
     }
 

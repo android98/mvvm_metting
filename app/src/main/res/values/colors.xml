@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+
+
+    <color name="colorPrimary">#517da2</color>
+    <color name="colorPrimaryDark">#314b62</color>
+    <color name="colorAccent">#03c20f</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBackGround">#efefef</color>
+    <color name="TranscolorBlack">#80000000</color>location_on_black>
+    <color name="colorRed">#fc2c2c</color>location_on_black>
+    <color name="colorGray">#c9c9c9</color>
+    <color name="colorGrayIcon">#999999</color>
+    <color name="colorGrayDarkIcon">#767676</color>
+    <color name="colorGreen">#0c8f00</color>
+    <color name="colorOrange">#e27c3d</color>
+
+
+ <!--   <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBlack">#000000</color>
@@ -12,6 +29,6 @@
     <color name="colorGrayIcon">#999999</color>
     <color name="colorGrayDarkIcon">#767676</color>
     <color name="colorGreen">#0c8f00</color>
-    <color name="colorOrange">#e27c3d</color>
+    <color name="colorOrange">#e27c3d</color>-->
 
 </resources>

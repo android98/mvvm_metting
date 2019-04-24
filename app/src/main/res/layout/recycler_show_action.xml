@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="18dp"
+    android:layout_marginLeft="18dp"
+    android:background="@color/colorBackGround"
+    android:elevation="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/btnAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="عنوان"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginLeft="18dp"
+            android:textColor="@color/colorBlack"
+            android:textDirection="rtl"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="16dp"
+            android:text="انجام دهنده"/>
+
+        <TextView
+            android:id="@+id/txtPerformer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_marginRight="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="8dp"
+            android:textDirection="rtl"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="تاریخ انجام"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="12dp" />
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:layout_marginRight="18dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="18dp"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

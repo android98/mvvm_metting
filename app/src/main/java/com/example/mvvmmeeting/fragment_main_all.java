@@ -37,6 +37,7 @@ public class fragment_main_all extends Fragment {
 
 
     MeetingModel archieMeeting = new MeetingModel();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,71 +45,19 @@ public class fragment_main_all extends Fragment {
                 R.layout.fragment_fragment_main_all, container, false);
 
 
-       /* List<MeetingModel> dataModelList = new ArrayList<>();
-        dataModelList.add(new MeetingModel("pooia ", "maleki", "1980/10/8"));
-        dataModelList.add(new MeetingModel("asdasfdsf ", "sdasdasd","1990/08/08"));
-        dataModelList.add(new MeetingModel("asdasd ", "sdasdasd","1990/08/08"));
-        dataModelList.add(new MeetingModel("asdasfdsf ", "tgfbv","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("asfasdfsdf ", "ewteryhrty","1990/08/08"));
-        dataModelList.add(new MeetingModel("dsfsdafdsfsdafads ", "sdasdasd","1990/08/08"));*/
         Realm realm = Realm.getDefaultInstance();
         RealmResults<MeetingModel> results = realm.where(MeetingModel.class).findAll();
-        /*PersianCalendar calendar = new PersianCalendar();
-        for (int i = 0; i < results.size(); i++) {
 
-            MeetingModel meetingModel = results.get(i);
-            MeetingInfoModel model = new MeetingInfoModel();
-            model.setMeetingName(meetingModel.getMeetingName());
-            model.setClosingMeetingTime(meetingModel.getMeetingTime());
-            model.setMeetingDate(meetingModel.getMeetingDate());
-            model.setMeetingInformation(meetingModel.getMeetingInformation());
-
-            Log.d("realam", "onCreateView: " + model.getMeetingName());
-            Log.d("realam", "onCreateView: " + model.getClosingMeetingTime());
-            Log.d("realam", "onCreateView: " + model.getMeetingDate());
-            Log.d("realam", "onCreateView: " + model.getMeetingInformation());
-
-        }*/
-            //archieMeeting.add(model);
-            //Log.d("realm", "onCreateView: " + archieMeeting.get(2).getMeetingName());
-
-            Recycler_Adapter_Show_Meeting meeting = new Recycler_Adapter_Show_Meeting(results
-                    , getActivity());
-            binding.setAdapter(meeting);
-
-
-
-/*
-            binding.mainRecycler.setAdapter(new Recycler_Adapter_Show_Meeting(
-                    results, new Recycler_Adapter_Show_Meeting.OnItemClickListener() {
-                @Override
-                public void onItemClick(MeetingModel item) {
-                    Toast.makeText(context, "Salam"+item.meetingName, Toast.LENGTH_SHORT).show();
-                }
-            }
-            ));*/
-
+        Recycler_Adapter_Show_Meeting meeting = new Recycler_Adapter_Show_Meeting(results
+                , getActivity());
+        binding.setAdapter(meeting);
 
 
         Recycler_Adapter_Show_Meeting adapter = binding.getAdapter();
-        //Recycler_Adapter_Show_Meeting adapter = binding.getAdapter();
-        //Log.d("biggg", "onCreateView: "+adapter.models.get(1).meetingName);
-
 
         Log.d("biggg", "onCreateView: " + "Salammmmmm");
 
         return binding.getRoot();
 
-        //return super.onCreateView(inflater, container, savedInstanceState);
     }
 }
