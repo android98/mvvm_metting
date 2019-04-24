@@ -6,16 +6,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mvvmmeeting.Activities.AttachImageActivity;
+import com.example.mvvmmeeting.Activities.FullScreenViewActivity;
 import com.example.mvvmmeeting.Models.ImageModel;
 import com.example.mvvmmeeting.R;
 
@@ -41,8 +42,10 @@ public class Recycler_Adapter_Attach_Image extends RecyclerView.Adapter<
     @Override
     public Recycler_Adapter_Attach_Image.myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_attach_image,
+        View inflate = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_attach_image,
                 viewGroup, false);
+        Log.d("test", "onCreate: "+"come in recycler ADapter onCreateView");
+
         return new myViewHolder(inflate);
 
     }
@@ -50,6 +53,7 @@ public class Recycler_Adapter_Attach_Image extends RecyclerView.Adapter<
     @Override
     public void onBindViewHolder(@NonNull Recycler_Adapter_Attach_Image.myViewHolder myViewHolder, final int i) {
         final File file = new File(infos.get(i).getImagePath());
+        Log.d("akssssssssss", "onBindViewHolder: "+file.toString());
         Uri uri = Uri.fromFile(file);
         Glide.with(activity)
                 .load(uri)
@@ -57,7 +61,7 @@ public class Recycler_Adapter_Attach_Image extends RecyclerView.Adapter<
         myViewHolder.imgSquire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, FullScreenAttachImageActivity.class);
+                Intent intent = new Intent(activity, FullScreenViewActivity.class);
                 intent.putExtra("position", i);
                 intent.putExtra("parentId",parentId);
                 activity.startActivity(intent);

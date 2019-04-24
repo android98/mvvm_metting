@@ -48,13 +48,40 @@ public class AttachImageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         parentId = intent.getIntExtra("parentId", -1);
 
+        Log.d("test", "onCreate: "+"come in attach image");
         injectToptoolbar();
         getImagesFromRealm();
     }
 
     private void getImagesFromRealm() {
 
+        txtNoImage = findViewById(R.id.txtNoImage);
+        recyclerImages = findViewById(R.id.recyclerImages);
 
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<ImageModel> results = realm.where(ImageModel.class)
+                .equalTo("parentId",parentId)
+                .findAll();
+
+        images = results;
+
+        if ( images != null ){
+
+            if ( images.size() >=1 ){
+                txtNoImage.setVisibility(View.INVISIBLE);
+                recyclerImages.setVisibility(View.VISIBLE);
+
+                injectRecyclerView();
+            }else {
+                recyclerImages.setVisibility(View.INVISIBLE);
+                txtNoImage.setVisibility(View.VISIBLE);
+            }
+        }else{
+            Log.i("test123","the result for image from realm is null");
+        }
+
+        realm.close();
     }
 
     private void injectToptoolbar() {
@@ -154,7 +181,7 @@ public class AttachImageActivity extends AppCompatActivity {
             @Override
             public void execute(Realm realm) {
                 ImageModel model = realm.createObject(ImageModel.class, imageId);
-                model.setParenId(parentId);
+                model.setParentId(parentId);
                 model.setImagePath(path);
             }
         }, new Realm.Transaction.OnSuccess() {

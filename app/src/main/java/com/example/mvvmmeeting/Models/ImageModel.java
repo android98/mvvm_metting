@@ -1,10 +1,12 @@
 package com.example.mvvmmeeting.Models;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class ImageModel extends RealmObject {
-
-    private int imageId,parenId;
+    @PrimaryKey
+    private int imageId;
+        public int  parentId;
     private String imagePath;
 
 
@@ -16,12 +18,12 @@ public class ImageModel extends RealmObject {
         this.imageId = imageId;
     }
 
-    public int getParenId() {
-        return parenId;
+    public int getParentId() {
+        return parentId;
     }
 
-    public void setParenId(int parenId) {
-        this.parenId = parenId;
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
     public String getImagePath() {
