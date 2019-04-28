@@ -79,6 +79,7 @@
                         android:layout_height="wrap_content"
                         android:focusableInTouchMode="true"
                         android:textSize="18dp"
+                        android:fontFamily="@string/type_image"
                         android:hint="عنوان جلسه"
                         android:paddingRight="10dp">
 
@@ -132,7 +133,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:hint="تاریخ شروع جلسه"
-                            android:textSize="16dp"
+                            android:textSize="18dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="12dp" />
 
@@ -188,6 +189,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="12dp"
+                            android:textSize="18dp"
                             android:text="ساعت شروع جلسه" />
 
                     </LinearLayout>

@@ -45,7 +45,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
 
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View inflate = inflater.inflate(R.layout.layout_fullscreen_view, container, false);
+        View inflate = inflater.inflate(R.layout.layout_fullscreen_image, container, false);
         imageDisplay = inflate.findViewById(R.id.imgDisplay);
         btnClose = inflate.findViewById(R.id.btnClose);
 
@@ -80,6 +80,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
-        return false;
+
+        return view == ((RelativeLayout) o);
     }
 }

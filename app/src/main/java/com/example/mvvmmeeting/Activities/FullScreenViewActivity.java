@@ -48,10 +48,11 @@ public class FullScreenViewActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        intent.getIntExtra("parentId", -1);
-        intent.getIntExtra("position", 0);
+         parentId = intent.getIntExtra("parentId", -1);
+         position = intent.getIntExtra("position", 0);
 
         getImageFromRealm();
+        removeImage();
 
     }
 
