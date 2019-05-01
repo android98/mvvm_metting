@@ -33,6 +33,8 @@ import com.example.mvvmmeeting.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 public class MembersActivity extends AppCompatActivity {
 
     private static final int CONTACT_PICKER_DOIALOG = 1001;
@@ -357,6 +359,14 @@ public class MembersActivity extends AppCompatActivity {
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(MembersActivity.this,MainActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+        finish();
+        startActivity(intent);
     }
 
 }

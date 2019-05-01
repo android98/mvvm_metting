@@ -231,7 +231,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
             /*meetingDate = result.get(0).getMeetingDate();
             PersianCalendar calendar = new PersianCalendar();
             calendar.setTime(result.get(0).getMeetingDate());*/
-            txtShowDate.setText(result.get(0).getMeetingDate());
+            txtShowDate.setText((CharSequence) result.get(0).getMeetingDate());
 
             getClosingDate();
 

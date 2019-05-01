@@ -1,20 +1,21 @@
 package com.example.mvvmmeeting.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class ActionModel extends RealmObject {
+public class ActionModel extends RealmObject implements Serializable {
 
     @PrimaryKey
-    private int actionId;
-    private int parentId, state;
+    public int actionId;
+    public int parentId, state;
 
-    private String actionTitle,actionPerformerName, actionPerformerNumber;
+    public String actionTitle,actionPerformerName, actionPerformerNumber;
 
-    private Date actionDate;
-    private String actionDescription;
+    public Date actionDate;
+    public String actionDescription;
 
 
     public int getActionId() {

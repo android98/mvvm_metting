@@ -11,4 +11,10 @@
         android:id="@+id/item_add_description"
         android:title="افزودن توضیح"
         app:showAsAction="always|withText" />
+
+    <item
+
+        android:id="@+id/item_add_report"
+        android:title="تهیه نسخه PDF"
+        app:showAsAction="always|withText" />
 </menu>

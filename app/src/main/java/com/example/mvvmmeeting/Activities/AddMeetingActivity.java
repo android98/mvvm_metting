@@ -227,8 +227,8 @@ public class AddMeetingActivity extends AppCompatActivity {
                         .setListener(new Listener() {
                             @Override
                             public void onDateSelected(PersianCalendar persianCalendar) {
-                                meetingDate = persianCalendar.getTime();
                                 txtShowDate.setText(persianCalendar.getPersianLongDate());
+                                meetingDate = persianCalendar.getTime();
                                 Log.d("datesss", "onDateSelected: " + meetingDate);
                             }
 

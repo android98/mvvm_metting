@@ -51,4 +51,6 @@ dependencies {
     implementation "com.orhanobut:hawk:2.0.1"
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'crl.android.pdfwriter:apwlibrary:2.0.0-preview1'
+    implementation 'com.itextpdf:itextg:5.5.10'
 }

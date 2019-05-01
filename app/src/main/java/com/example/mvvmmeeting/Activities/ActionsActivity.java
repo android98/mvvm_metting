@@ -1,14 +1,26 @@
 package com.example.mvvmmeeting.Activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -16,10 +28,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,9 +45,28 @@ import android.widget.Toast;
 import com.example.mvvmmeeting.Adapters.Recycler_Adapter_Show_Actions;
 import com.example.mvvmmeeting.Models.ActionModel;
 import com.example.mvvmmeeting.R;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+import crl.android.pdfwriter.PDFWriter;
+import crl.android.pdfwriter.PaperSize;
+import crl.android.pdfwriter.StandardFonts;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.hamsaa.persiandatepicker.Listener;
@@ -45,6 +79,8 @@ public class ActionsActivity extends AppCompatActivity {
     private int parentId = -1;
     private static final int CONTACT_PICKER_RESULT = 1001;
     private static final int CONTACT_PICKER_RESULT_UPDATE = 1002;
+    private static final int STORAGE_CODE = 1002;
+
     ImageView btnMenu;
     TextView txtShowContact;
     TextView txtShowContactUpdate;
@@ -225,6 +261,59 @@ public class ActionsActivity extends AppCompatActivity {
                                 dialogAction.show();
                                 return true;
 
+
+
+                            case R.id.item_add_report:
+                                final Dialog report_Dialog = new Dialog(ActionsActivity.this);
+                                report_Dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                report_Dialog.setContentView(R.layout.custom_dialog_make_report);
+
+                                TextView button_Y = report_Dialog.findViewById(R.id.btnYes);
+                                TextView button_N = report_Dialog.findViewById(R.id.btnNo);
+                                report_Dialog.show();
+
+
+                                button_Y.setOnClickListener(new View.OnClickListener() {
+                                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                                    @Override
+                                    public void onClick(View v) {
+
+
+                                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                                            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                    == PackageManager.PERMISSION_DENIED) {
+                                                String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                                                requestPermissions(permissions,
+                                                        STORAGE_CODE);
+                                            } else {
+                                                Save();
+                                                report_Dialog.dismiss();
+
+                                            }
+                                        } else {
+                                            Save();
+                                            report_Dialog.dismiss();
+
+                                        }
+
+
+
+                                    }
+                                });
+
+
+                                button_N.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        report_Dialog
+                                                .dismiss();
+
+                                    }
+                                });
+                                return true;
+
+
+
                             // add description
                             case R.id.item_add_description:
                                 final Dialog dialog = new Dialog(ActionsActivity.this);
@@ -268,6 +357,7 @@ public class ActionsActivity extends AppCompatActivity {
                                     }
                                 });
 
+
                                 Window window = dialog.getWindow();
                                 window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                                 dialog.show();
@@ -281,6 +371,61 @@ public class ActionsActivity extends AppCompatActivity {
                 popup.show();
             }
         });
+
+    }
+
+    private void Save() {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<ActionModel> results = realm.where(ActionModel.class).equalTo("parentId", parentId).findAll();
+
+        if (results.size() > 0) {
+            showRecycler();
+            actions = results;
+            injectRecyclerView();
+            RealmResults<ActionModel> FileInf = results;
+
+
+            Log.d("actions", "getActionsFromRealm_Make_PDF: " + results.toString());
+            Log.d("actions", "getActionsFromRealm_Make_PDF: " + FileInf.toString());
+
+            Document mDoc = new Document();
+            String mFilePath = Environment.getExternalStorageDirectory() +
+                    "/ping.pdf";
+
+
+            try {
+                FileOutputStream stream = new FileOutputStream(mFilePath);
+                PdfWriter.getInstance(mDoc, stream);
+
+
+                mDoc.open();
+
+
+                for (int i = 0; i < FileInf.size(); i++) {
+
+                    String mtext = "موضوع اقدام :" + FileInf.get(i).getActionTitle() + "\n" + "توضیحات اقدامم" + FileInf.get(i).getActionDescription() + "\n" + "تاریخ اقدام" + FileInf.get(i).getActionDate() + "\n"
+                            + "شخص انجام دهنده" + FileInf.get(i).getActionPerformerName() + "\n" + "شماره شخص انجام دهنده" + FileInf.get(i).getActionPerformerNumber() + "\n"+ "\n"+ "\n"+ "\n" +"******";
+
+                    mDoc.addAuthor("Pooria Malekki");
+
+                    mDoc.add(new Paragraph(mtext));
+                }
+
+
+                mDoc.close();
+
+                Toast.makeText(this, "" + mFilePath + "\n" + "Created Ook :) ", Toast.LENGTH_SHORT).show();
+
+
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            showNullText();
+        }
 
     }
 
@@ -433,9 +578,216 @@ public class ActionsActivity extends AppCompatActivity {
             showRecycler();
             actions = results;
             injectRecyclerView();
+            Log.d("report", "getActionsFromRealm: " + results.toString());
         } else {
             showNullText();
         }
+    }
+
+
+    public void outputToFile(String fileName, String pdfContent, String encoding) {
+        File newFile = new File(fileName);
+
+        try {
+            newFile.createNewFile();
+
+            try {
+                FileOutputStream pdfFile = openFileOutput(fileName, Context.MODE_WORLD_READABLE);
+                OutputStreamWriter writer = new OutputStreamWriter(pdfFile);
+                writer.write(String.valueOf(pdfContent.getBytes(encoding)));
+                writer.flush();
+                writer.close();
+
+            } catch (FileNotFoundException e) {
+                // ...
+            }
+
+        } catch (IOException e) {
+            // ...
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void getActionsFromRealm_Make_PDF() {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<ActionModel> results = realm.where(ActionModel.class).equalTo("parentId", parentId).findAll();
+
+        if (results.size() > 0) {
+            showRecycler();
+            actions = results;
+            injectRecyclerView();
+            RealmResults<ActionModel> FileInf = results;
+
+
+            Log.d("actions", "getActionsFromRealm_Make_PDF: " + results.toString());
+            Log.d("actions", "getActionsFromRealm_Make_PDF: " + FileInf.toString());
+
+            Document mDoc = new Document();
+            String mFilePath = Environment.getExternalStorageDirectory() +
+                    "/ping.pdf";
+
+
+            try {
+                PdfWriter.getInstance(mDoc, new FileOutputStream(mFilePath));
+
+                mDoc.open();
+
+                String mtext = FileInf.get(1).getActionDescription();
+
+                mDoc.addAuthor("Pooria Malekki");
+
+                mDoc.add(new Paragraph(mtext));
+
+                mDoc.close();
+
+                Toast.makeText(this, "" + mFilePath + "\n" + "Created Ook :) ", Toast.LENGTH_SHORT).show();
+
+
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+
+            /*PDFWriter writer = new PDFWriter(PaperSize.FOLIO_WIDTH,
+                    PaperSize.FOLIO_HEIGHT);
+            writer.setFont(StandardFonts.SUBTYPE, StandardFonts.TIMES_BOLD, StandardFonts.WIN_ANSI_ENCODING);
+
+           *//* for (int i = 0; i < FileInf.size(); i++) {
+
+                writer.addText(10, 10,
+                        10, "sadasdasdasd" + "dsadasffdf" + "safadsfdsfaaaaadasfdsfalkkkkkkkkkkkkkkkkkkkkkk");
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionId());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getParentId());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionTitle());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionDescription());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionPerformerName());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionPerformerNumber());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionDate());
+            }*//*
+
+
+            for (int i = 0; i < FileInf.size(); i++) {
+
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionId());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getParentId());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionTitle());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionDescription());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionPerformerName());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionPerformerNumber());
+                Log.d("RRRRRR", "getActionsFromRealm_Make_PDF: " + FileInf.get(i).getActionDate());
+
+                //writer.addText(  1000,10000 ,20, "dskfjdskfhdscvdslvhkjdhvgkjhksdjfhksdjhfksdhfkdsjhfkdsfgdshkfgsdjfgkjdgfd" );
+                writer.addText(1000, 10000, 10, FileInf.get(i).getActionTitle() + "\n");
+                writer.addText(1400, 1400, 10, FileInf.get(i).getActionDescription() + "\n");
+                writer.addText(1600, 1600, 10, FileInf.get(i).getActionPerformerName() + "\n");
+                writer.addText(1800, 1800, 10, FileInf.get(i).getActionPerformerNumber() + "\n");
+                writer.addText(2000, 2000, 10, String.valueOf(FileInf.get(i).getActionDate()) + "\n");
+
+                writer.newPage();
+            }
+
+
+            //outputToFile("testss.pdf", writer.asString(), "ISO-8859-1");
+
+
+            createPdf(writer.asString(), "ISO-8859-1");
+            Log.d("main", "getActionsFromRealm: " + "DOneeeeeeeeeeee");*/
+
+            /*for (int i = 0; i < results.size(); i++) {
+
+             *//*  createPdf(
+                        "آیدی  :" + String.valueOf(FileInf.get(i).getActionId()) + "\n"
+                                + "عنوان:" + FileInf.get(i).getActionTitle().toString()+ "\n"
+                                + "توضییحات" + FileInf.get(i).getActionDescription().toString()+ "\n"
+                                + "انجام دهنده" + FileInf.get(i).getActionPerformerName().toString()+ "\n"
+                                + "شماره" + FileInf.get(i).getActionPerformerNumber().toString()+ "\n"
+                                + "تاریخ : " + FileInf.get(i).getActionDate().toString());*//*
+                String directory_path = "test.txt";
+                File file = new File(directory_path);
+
+                try {
+                    FileOutputStream stream = (FileOutputStream) openFileOutput("test.txt", MODE_PRIVATE);
+                    OutputStreamWriter writer = new OutputStreamWriter(stream);
+                    for (int ii = 0; ii < results.size(); ii++) {
+                        writer.write(
+                                "آیدی  :" + String.valueOf(FileInf.get(ii).getActionId()).getBytes() + "\n"
+                                        + "عنوان:" + FileInf.get(ii).getActionTitle().toString().getBytes() + "\n"
+*//*
+                                        + "توضییحات" + FileInf.get(ii).getActionDescription().toString().getBytes() + "\n"
+*//*
+             *//*
+                                        + "انجام دهنده" + FileInf.get(ii).getActionPerformerName().toString().getBytes() + "\n"
+*//*
+             *//*
+                                        + "شماره" + FileInf.get(ii).getActionPerformerNumber().toString().getBytes() + "\n"
+*//*
+                                        + "تاریخ : " + FileInf.get(ii).getActionDate().toString().getBytes());
+
+                        Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
+                        writer.flush();
+                        writer.close();
+                        Log.e("main", "Ook ");
+                    }
+
+
+
+
+                } catch (IOException e) {
+                    Log.e("main", "error " + e.toString());
+                    Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+                }
+
+            }*/
+
+
+        } else {
+            showNullText();
+        }
+    }
+
+
+    private void createPdf(String sometext, String encoding) {
+        // create a new document
+       /* PdfDocument document = new PdfDocument();
+        // crate a page description
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
+        // start a page
+        PdfDocument.Page page = document.startPage(pageInfo);
+        Canvas canvas = page.getCanvas();
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+        canvas.drawCircle(50, 50, 30, paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawText(sometext, 80, 50, paint);
+        //canvas.drawt
+        // finish the page
+        document.finishPage(page);*/
+// draw text on the graphics object of the page
+        // Create Page 2
+       /* pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 2).create();
+        page = document.startPage(pageInfo);
+        canvas = page.getCanvas();
+        paint = new Paint();
+        paint.setColor(Color.BLUE);
+        canvas.drawCircle(100, 100, 100, paint);
+        document.finishPage(page);*/
+        // write the document content
+     /*   String directory_path = "test.pdf";
+        File file = new File(Filename+directory_path);
+*/
+        try {
+            FileOutputStream stream = openFileOutput("tests.pdf", Context.MODE_PRIVATE);
+            stream.write(sometext.getBytes(encoding));
+            stream.close();
+
+        } catch (IOException e) {
+            Log.e("main", "error " + e.toString());
+            Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
+        }
+        // close the document
     }
 
     private void showRecycler() {
@@ -611,4 +963,18 @@ public class ActionsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case STORAGE_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager
+                        .PERMISSION_GRANTED) {
+                    Save();
+                } else {
+                    Toast.makeText(this, "PEemsiion Denided ", Toast.LENGTH_SHORT).show();
+                }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 }
