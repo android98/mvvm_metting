@@ -12,10 +12,9 @@ public class ActionModel extends RealmObject implements Serializable {
     public int actionId;
     public int parentId, state;
 
-    public String actionTitle,actionPerformerName, actionPerformerNumber;
+    public String actionTitle,actionPerformerName, actionPerformerNumber,actionDescription;
 
     public Date actionDate;
-    public String actionDescription;
 
 
     public int getActionId() {

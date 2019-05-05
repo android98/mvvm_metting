@@ -56,8 +56,6 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     LinearLayout btnActions;
 
 
-
-
     RelativeLayout relativeMap;
 
     EditText edtMeetingInfo;
@@ -69,8 +67,8 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     public static double meetingLng = 0.0;
 
 
-    private int RECORD_AUDIO_REQUEST_CODE =123 ;
-    private int PICK_IMAGE_REQUEST_CODE = 321 ;
+    private int RECORD_AUDIO_REQUEST_CODE = 123;
+    private int PICK_IMAGE_REQUEST_CODE = 321;
     private int READ_STORAGE_REQUEST_CODE = 453;
     private static final int ACCESS_CONTATC_REQUEST_CODE = 101;
 
@@ -83,15 +81,12 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_details);
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         this.orderID = bundle.getInt("orderid");
         Log.d("orderid", "onCreate: " + this.orderID);
         GetMeetingInfoFromRealm(orderID);
         Utilities.getPermission(MeetingDetailsActivity.this);
-
-
         getMembers();
         AttachImages();
         AttachFile();
@@ -109,11 +104,11 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
 
                 if (ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED
-                        && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_GRANTED ){
-                    Intent intent = new Intent(MeetingDetailsActivity.this,ActionsActivity.class);
-                    intent.putExtra("parentId",orderID);
+                        && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(MeetingDetailsActivity.this, ActionsActivity.class);
+                    intent.putExtra("parentId", orderID);
                     startActivity(intent);
-                }else getPermissionToAccessContact();
+                } else getPermissionToAccessContact();
 
 
             }
@@ -122,10 +117,10 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void getPermissionToAccessContact(){
+    private void getPermissionToAccessContact() {
 
         if (ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED ){
+                && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS},
                     ACCESS_CONTATC_REQUEST_CODE);
@@ -139,25 +134,24 @@ public class MeetingDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Log.i("test123","in the on click listener");
+                Log.i("test123", "in the on click listener");
 
 
                 if (ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
                         && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-                        && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                        && ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
-                    Log.i("test123","in the if:permission granted");
-                    Intent intent = new Intent( MeetingDetailsActivity.this,RecordVoiceActivity.class);
-                    intent.putExtra("parentId",orderID);
+                    Log.i("test123", "in the if:permission granted");
+                    Intent intent = new Intent(MeetingDetailsActivity.this, RecordVoiceActivity.class);
+                    intent.putExtra("parentId", orderID);
                     startActivity(intent);
-                }else {
+                } else {
                     getPermissionToRecordAudio();
-                    Log.i("test123","in the if:permission not granted");
+                    Log.i("test123", "in the if:permission not granted");
                 }
             }
         });
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -169,7 +163,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         // since the user can revoke permissions at any time through Settings
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ) {
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
 
             // The permission is NOT already granted.
@@ -195,8 +189,8 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(MeetingDetailsActivity.this,
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_STORAGE_REQUEST_CODE);
                 } else {
-                    Intent intent = new Intent(MeetingDetailsActivity.this,AttachFileActivity.class);
-                    intent.putExtra("parentId",orderID);
+                    Intent intent = new Intent(MeetingDetailsActivity.this, AttachFileActivity.class);
+                    intent.putExtra("parentId", orderID);
                     startActivity(intent);
                 }
             }
@@ -216,6 +210,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         txtTopToolbar.setText(toolbar);
 
     }
+
 
     private void GetMeetingInfoFromRealm(int orderId) {
 
@@ -252,6 +247,8 @@ public class MeetingDetailsActivity extends AppCompatActivity {
             edtMeetingName.setText(result.get(0).getMeetingName());
 
 
+
+
             getLocation();
             getClosingTime();
             txtShowClosingTime.setText((CharSequence) result.get(0).getClosingMeetingTime());
@@ -266,9 +263,6 @@ public class MeetingDetailsActivity extends AppCompatActivity {
             Log.d("memebr", "GetMeetingInfoFromRealm: " + result.get(0).getMeetingDate());
 
 
-
-
-
         }
     }
 
@@ -280,7 +274,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                new DialogFragmentShowMap().show(getSupportFragmentManager(),null);
+                new DialogFragmentShowMap().show(getSupportFragmentManager(), null);
 
             }
         });
@@ -307,16 +301,16 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                                 String hou = "";
 
 
-                                if ( i<10 ){
-                                    min = "0"+String.valueOf(i);
-                                }else {
+                                if (i < 10) {
+                                    min = "0" + String.valueOf(i);
+                                } else {
                                     min = String.valueOf(i);
                                 }
 
 
-                                if ( i1<10 ){
-                                    hou = "0"+String.valueOf(i1);
-                                }else{
+                                if (i1 < 10) {
+                                    hou = "0" + String.valueOf(i1);
+                                } else {
                                     hou = String.valueOf(i1);
                                 }
                                 meetingTime = min + ":" + hou;
@@ -326,17 +320,17 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
-                                    public void execute (Realm realm) {
+                                    public void execute(Realm realm) {
                                         MeetingModel obj = realm.where(MeetingModel.class).equalTo(
                                                 "meetingId", orderID).findFirst();
-                                        if(obj != null) {
+                                        if (obj != null) {
                                             obj.setMeetingTime(meetingTime);
                                         }
                                     }
                                 });
 
                             }
-                        },hour,minute,true);
+                        }, hour, minute, true);
 
                 timePickerDialog.show();
             }
@@ -344,7 +338,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void getClosingDate(){
+    private void getClosingDate() {
 
         btnGetClosingDate = findViewById(R.id.btnGetClosingDate);
         txtShowClosingDate = findViewById(R.id.txtShowClosingDate);
@@ -370,9 +364,9 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
-                                    public void execute (Realm realm) {
+                                    public void execute(Realm realm) {
                                         MeetingModel obj = realm.where(MeetingModel.class).equalTo("meetingId", orderID).findFirst();
-                                        if(obj != null) {
+                                        if (obj != null) {
                                             obj.setMeetingClosingDat(meetingClosingDate);
                                         }
 
@@ -387,10 +381,10 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                             }
                         });
 
-                if ( meetingClosingDate != null ){
+                if (meetingClosingDate != null) {
                     PersianCalendar calendar = new PersianCalendar();
                     calendar.setTime(meetingClosingDate);
-                    perDialog.setInitDate(calendar,true);
+                    perDialog.setInitDate(calendar, true);
                 }
 
                 perDialog.show();
@@ -458,7 +452,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     }
 
 
-    private void getClosingTime(){
+    private void getClosingTime() {
 
         btnGetClossingTime = findViewById(R.id.btnGetClossingTime);
         txtShowClosingTime = findViewById(R.id.txtShowClosingTime);
@@ -479,15 +473,15 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                                 String hou = "";
                                 String closingMeetingTime = "";
 
-                                if ( i<10 ){
-                                    min = "0"+String.valueOf(i);
-                                }else {
+                                if (i < 10) {
+                                    min = "0" + String.valueOf(i);
+                                } else {
                                     min = String.valueOf(i);
                                 }
 
-                                if ( i1<10 ){
-                                    hou = "0"+String.valueOf(i1);
-                                }else{
+                                if (i1 < 10) {
+                                    hou = "0" + String.valueOf(i1);
+                                } else {
                                     hou = String.valueOf(i1);
                                 }
                                 closingMeetingTime = min + ":" + hou;
@@ -498,17 +492,17 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                                 final String finalClosingMeetingTime = closingMeetingTime;
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
-                                    public void execute (Realm realm) {
+                                    public void execute(Realm realm) {
                                         MeetingModel obj = realm.where(MeetingModel.class).equalTo(
                                                 "meetingId", orderID).findFirst();
-                                        if(obj != null) {
+                                        if (obj != null) {
                                             obj.setClosingMeetingTime(finalClosingMeetingTime);
                                         }
                                     }
                                 });
 
                             }
-                        },hour,minute,true);
+                        }, hour, minute, true);
 
                 timePickerDialog.show();
             }
@@ -524,27 +518,26 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
                 int currentAPIVersion = Build.VERSION.SDK_INT;
 
-                if ( currentAPIVersion >= android.os.Build.VERSION_CODES.M ){
+                if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
 
                     if (ContextCompat.checkSelfPermission(MeetingDetailsActivity.this,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED )
-                    {
-                        requestPermissions( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                                ,PICK_IMAGE_REQUEST_CODE);
-                    }else {
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                                , PICK_IMAGE_REQUEST_CODE);
+                    } else {
                         Intent intent = new Intent(MeetingDetailsActivity.
-                                this,AttachImageActivity.class);
-                        if ( orderID != -1 ){
+                                this, AttachImageActivity.class);
+                        if (orderID != -1) {
 
-                            intent.putExtra("parentId",orderID);
+                            intent.putExtra("parentId", orderID);
                             startActivity(intent);
                         }
                     }
-                }else {
-                    Intent intent = new Intent(MeetingDetailsActivity.this,AttachImageActivity.class);
-                    if ( orderID != -1 ){
+                } else {
+                    Intent intent = new Intent(MeetingDetailsActivity.this, AttachImageActivity.class);
+                    if (orderID != -1) {
 
-                        intent.putExtra("parentId",orderID);
+                        intent.putExtra("parentId", orderID);
                         startActivity(intent);
                     }
                 }
@@ -555,26 +548,25 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     }
 
 
-    private void getMembers(){
+    private void getMembers() {
 
         btnGetMembers = findViewById(R.id.btnGetMembers);
         btnGetMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MeetingDetailsActivity.this,PresentMembersActivity.class);
+                Intent intent = new Intent(MeetingDetailsActivity.this, PresentMembersActivity.class);
                 Realm realm = Realm.getDefaultInstance();
 
-                if ( orderID != -1 ){
+                if (orderID != -1) {
 
-                    intent.putExtra("parentId",orderID);
+                    intent.putExtra("parentId", orderID);
                     startActivity(intent);
                 }
             }
         });
 
     }
-
 
 
 }

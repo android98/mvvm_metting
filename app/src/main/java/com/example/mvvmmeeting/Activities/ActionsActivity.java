@@ -43,15 +43,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mvvmmeeting.Adapters.Recycler_Adapter_Show_Actions;
+import com.example.mvvmmeeting.MeetingModel;
 import com.example.mvvmmeeting.Models.ActionModel;
 import com.example.mvvmmeeting.R;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.orhanobut.hawk.Hawk;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -97,16 +103,19 @@ public class ActionsActivity extends AppCompatActivity {
     String updatePerformerName = "";
     String updatePerformerNumber = "";
 
+    public static String fileName = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actions);
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         parentId = bundle.getInt("parentId");
+
+
 
         getActionsFromRealm();
         injectTopToolbar();
@@ -262,7 +271,6 @@ public class ActionsActivity extends AppCompatActivity {
                                 return true;
 
 
-
                             case R.id.item_add_report:
                                 final Dialog report_Dialog = new Dialog(ActionsActivity.this);
                                 report_Dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -270,6 +278,7 @@ public class ActionsActivity extends AppCompatActivity {
 
                                 TextView button_Y = report_Dialog.findViewById(R.id.btnYes);
                                 TextView button_N = report_Dialog.findViewById(R.id.btnNo);
+                                final EditText edt_fineName = report_Dialog.findViewById(R.id.edt_fineName);
                                 report_Dialog.show();
 
 
@@ -277,6 +286,8 @@ public class ActionsActivity extends AppCompatActivity {
                                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                                     @Override
                                     public void onClick(View v) {
+
+                                        fileName = edt_fineName.getText().toString();
 
 
                                         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
@@ -291,11 +302,10 @@ public class ActionsActivity extends AppCompatActivity {
 
                                             }
                                         } else {
+
                                             Save();
                                             report_Dialog.dismiss();
-
                                         }
-
 
 
                                     }
@@ -311,7 +321,6 @@ public class ActionsActivity extends AppCompatActivity {
                                     }
                                 });
                                 return true;
-
 
 
                             // add description
@@ -371,24 +380,53 @@ public class ActionsActivity extends AppCompatActivity {
                 popup.show();
             }
         });
-
     }
 
     private void Save() {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<ActionModel> results = realm.where(ActionModel.class).equalTo("parentId", parentId).findAll();
-
         if (results.size() > 0) {
             showRecycler();
             actions = results;
             injectRecyclerView();
             RealmResults<ActionModel> FileInf = results;
+            //Make Table
+            Document document = new Document();
+            PdfPTable table = new PdfPTable(new float[]{10, 15, 10, 12, 25});
+            table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell("Title");
+            table.addCell("Description");
+            table.addCell("Perfrom Name");
+            table.addCell("Perform Number");
+            table.addCell("Dates");
+            PdfPCell[] cells = table.getRow(0).getCells();
+            for (int j = 0; j < cells.length; j++) {
+                cells[j].setBackgroundColor(BaseColor.PINK);
+            }
+            for (int i = 0; i < FileInf.size(); i++) {
+                table.addCell(FileInf.get(i).getActionTitle());
+                table.addCell(FileInf.get(i).getActionDescription());
+                table.addCell(FileInf.get(i).getActionPerformerName());
+                table.addCell(FileInf.get(i).getActionPerformerNumber());
+                table.addCell(String.valueOf(FileInf.get(i).getActionDate()));
+            }
+            try {
+                PdfWriter.getInstance(document,
+                        new FileOutputStream(Environment.getExternalStorageDirectory() + "/" + fileName + ".pdf"
+                        ));
+                document.open();
+                document.add(table);
+                document.close();
+                Toast.makeText(this, "فایل ذخیره گردید", Toast.LENGTH_SHORT).show();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
 
-            Log.d("actions", "getActionsFromRealm_Make_PDF: " + results.toString());
-            Log.d("actions", "getActionsFromRealm_Make_PDF: " + FileInf.toString());
-
-            Document mDoc = new Document();
+            // Saving Mamoooli in PDF
+           /* Document mDoc = new Document();
             String mFilePath = Environment.getExternalStorageDirectory() +
                     "/ping.pdf";
 
@@ -421,7 +459,7 @@ public class ActionsActivity extends AppCompatActivity {
                 e.printStackTrace();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         } else {
             showNullText();
@@ -975,6 +1013,6 @@ public class ActionsActivity extends AppCompatActivity {
                     Toast.makeText(this, "PEemsiion Denided ", Toast.LENGTH_SHORT).show();
                 }
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
