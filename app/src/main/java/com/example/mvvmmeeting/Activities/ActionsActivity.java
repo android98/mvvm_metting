@@ -103,7 +103,9 @@ public class ActionsActivity extends AppCompatActivity {
     String updatePerformerName = "";
     String updatePerformerNumber = "";
 
+    public static String MeetingName = "";
     public static String fileName = "";
+
 
 
     @Override
@@ -115,7 +117,7 @@ public class ActionsActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         parentId = bundle.getInt("parentId");
 
-
+        GetJalaseName();
 
         getActionsFromRealm();
         injectTopToolbar();
@@ -382,6 +384,18 @@ public class ActionsActivity extends AppCompatActivity {
         });
     }
 
+    private void GetJalaseName() {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<MeetingModel> models = realm.where(MeetingModel.class).equalTo("meetingId", parentId).findAll();
+
+        for (int i = 0; i < models.size(); i++) {
+
+            MeetingName  = models.get(i).getMeetingName();
+            Log.d("meeting", "GetJalaseName: "+MeetingName );
+
+        }
+    }
+
     private void Save() {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<ActionModel> results = realm.where(ActionModel.class).equalTo("parentId", parentId).findAll();
@@ -392,6 +406,7 @@ public class ActionsActivity extends AppCompatActivity {
             RealmResults<ActionModel> FileInf = results;
             //Make Table
             Document document = new Document();
+            Paragraph paragraph = new Paragraph(MeetingName);
             PdfPTable table = new PdfPTable(new float[]{10, 15, 10, 12, 25});
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell("Title");
@@ -414,8 +429,13 @@ public class ActionsActivity extends AppCompatActivity {
                 PdfWriter.getInstance(document,
                         new FileOutputStream(Environment.getExternalStorageDirectory() + "/" + fileName + ".pdf"
                         ));
+
                 document.open();
+                document.add(paragraph);
+                document.isInline();
+                document.isInline();
                 document.add(table);
+
                 document.close();
                 Toast.makeText(this, "فایل ذخیره گردید", Toast.LENGTH_SHORT).show();
             } catch (DocumentException e) {
