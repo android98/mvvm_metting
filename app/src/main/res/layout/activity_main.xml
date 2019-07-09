@@ -26,15 +26,16 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right"
+        android:layoutDirection="rtl"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
+        android:layout_marginTop="50dp"
         app:menu="@menu/activity_main_drawer" >
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <include layout="@layout/main_drawer"></include>
     </RelativeLayout>
 

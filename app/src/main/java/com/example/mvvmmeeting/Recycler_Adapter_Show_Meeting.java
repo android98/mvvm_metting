@@ -35,7 +35,8 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
     @Override
     public Recycler_Adapter_Show_Meeting.CustomView onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        RecyclerShowmeetingsBinding showmeetingsBinding = DataBindingUtil.inflate(LayoutInflater.from(viewGroup.getContext()),
+        RecyclerShowmeetingsBinding showmeetingsBinding = DataBindingUtil.
+                inflate(LayoutInflater.from(viewGroup.getContext()),
                 R.layout.recycler_showmeetings, viewGroup, false);
         return new CustomView(showmeetingsBinding);
 

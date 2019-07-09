@@ -10,4 +10,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
+    <string name="format">%1$td/%1$tm/%1$tY</string>
 </resources>

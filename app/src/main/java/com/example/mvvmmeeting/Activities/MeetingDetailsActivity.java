@@ -72,7 +72,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     private int READ_STORAGE_REQUEST_CODE = 453;
     private static final int ACCESS_CONTATC_REQUEST_CODE = 101;
 
-    String meetingDate = "";
+    Date meetingDate = null;
     Date meetingClosingDate = null;
 
     private int orderID = -1;
@@ -223,10 +223,10 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
             InjectTopToolbar(result.get(0).getMeetingName());
             getDate();
-            /*meetingDate = result.get(0).getMeetingDate();
+            meetingDate = result.get(0).getMeetingDate();
             PersianCalendar calendar = new PersianCalendar();
-            calendar.setTime(result.get(0).getMeetingDate());*/
-            txtShowDate.setText((CharSequence) result.get(0).getMeetingDate());
+            calendar.setTime(result.get(0).getMeetingDate());
+            txtShowDate.setText(calendar.getPersianLongDate());
 
             getClosingDate();
 
@@ -339,14 +339,11 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     }
 
     private void getClosingDate() {
-
         btnGetClosingDate = findViewById(R.id.btnGetClosingDate);
         txtShowClosingDate = findViewById(R.id.txtShowClosingDate);
-
         btnGetClosingDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 PersianDatePickerDialog perDialog = new PersianDatePickerDialog(MeetingDetailsActivity.this)
                         .setPositiveButtonString("باشه")
                         .setNegativeButton("بیخیال")
@@ -357,11 +354,8 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                             @Override
                             public void onDateSelected(final PersianCalendar persianCalendar) {
                                 txtShowClosingDate.setText(persianCalendar.getPersianLongDate());
-
                                 meetingClosingDate = persianCalendar.getTime();
-
                                 Realm realm = Realm.getDefaultInstance();
-
                                 realm.executeTransaction(new Realm.Transaction() {
                                     @Override
                                     public void execute(Realm realm) {
@@ -369,41 +363,30 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                                         if (obj != null) {
                                             obj.setMeetingClosingDat(meetingClosingDate);
                                         }
-
                                     }
                                 });
-
                             }
-
                             @Override
                             public void onDismissed() {
 
                             }
                         });
-
                 if (meetingClosingDate != null) {
                     PersianCalendar calendar = new PersianCalendar();
                     calendar.setTime(meetingClosingDate);
                     perDialog.setInitDate(calendar, true);
                 }
-
                 perDialog.show();
-
             }
         });
-
     }
-
-
     private void getDate() {
 
         btnGetDate = findViewById(R.id.btnGetDate);
         txtShowDate = findViewById(R.id.txtShowDate);
-
         btnGetDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 PersianDatePickerDialog perDialog = new PersianDatePickerDialog(MeetingDetailsActivity.this)
                         .setPositiveButtonString("باشه")
                         .setNegativeButton("بیخیال")
@@ -414,7 +397,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                             @Override
                             public void onDateSelected(final PersianCalendar persianCalendar) {
                                 txtShowDate.setText(persianCalendar.getPersianLongDate());
-                                //meetingDate = persianCalendar.getTime();
+                                meetingDate = persianCalendar.getTime();
 
                                 Realm realm = Realm.getDefaultInstance();
 
@@ -424,7 +407,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                                         MeetingModel obj = realm.where(MeetingModel.class)
                                                 .equalTo("meetingId", orderID).findFirst();
                                         if (obj != null) {
-                                            obj.setMeetingDate(String.valueOf(persianCalendar.getTime()));
+                                            obj.setMeetingDate(meetingDate);
                                         }
 
                                     }
@@ -438,11 +421,11 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                             }
                         });
 
-               /* if (meetingDate != null) {
+                if (meetingDate != null) {
                     PersianCalendar calendar = new PersianCalendar();
                     calendar.setTime(meetingDate);
                     perDialog.setInitDate(calendar, true);
-                }*/
+                }
 
                 perDialog.show();
 

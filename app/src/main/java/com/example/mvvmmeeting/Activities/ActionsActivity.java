@@ -386,7 +386,8 @@ public class ActionsActivity extends AppCompatActivity {
 
     private void GetJalaseName() {
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<MeetingModel> models = realm.where(MeetingModel.class).equalTo("meetingId", parentId).findAll();
+        RealmResults<MeetingModel> models = realm.where
+                (MeetingModel.class).equalTo("meetingId", parentId).findAll();
 
         for (int i = 0; i < models.size(); i++) {
 
@@ -427,7 +428,8 @@ public class ActionsActivity extends AppCompatActivity {
             }
             try {
                 PdfWriter.getInstance(document,
-                        new FileOutputStream(Environment.getExternalStorageDirectory() + "/" + fileName + ".pdf"
+                        new FileOutputStream(Environment.getExternalStorageDirectory()
+                                + "/" + fileName + ".pdf"
                         ));
 
                 document.open();
@@ -1022,7 +1024,8 @@ public class ActionsActivity extends AppCompatActivity {
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
 
         switch (requestCode) {
             case STORAGE_CODE:

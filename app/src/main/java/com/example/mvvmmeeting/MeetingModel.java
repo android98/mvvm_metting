@@ -9,11 +9,11 @@ public class MeetingModel extends RealmObject {
 
     @PrimaryKey
     private int meetingId;
-    public String meetingName,meetingInformation,meetingTime,closingMeetingTime,meetingDate;
-    public Date meetingClosingDat;
+    public String meetingName,meetingInformation,meetingTime,closingMeetingTime;
+    public Date meetingClosingDat,meetingDate;
     private double meetinglat,meetingLng;
 
-    public MeetingModel(int meetingId, String meetingName, String meetingInformation, String meetingTime, String closingMeetingTime, String meetingDate, Date meetingClosingDat, double meetinglat, double meetingLng) {
+    public MeetingModel(int meetingId, String meetingName, String meetingInformation, String meetingTime, String closingMeetingTime, Date meetingDate, Date meetingClosingDat, double meetinglat, double meetingLng) {
         this.meetingId = meetingId;
         this.meetingName = meetingName;
         this.meetingInformation = meetingInformation;
@@ -26,10 +26,9 @@ public class MeetingModel extends RealmObject {
     }
 
 
-    public MeetingModel(String meetingName, String meetingInformation, String meetingDate) {
+    public MeetingModel(String meetingName, String meetingInformation) {
         this.meetingName = meetingName;
         this.meetingInformation = meetingInformation;
-        this.meetingDate = meetingDate;
     }
 
     public MeetingModel() {
@@ -75,11 +74,11 @@ public class MeetingModel extends RealmObject {
         this.closingMeetingTime = closingMeetingTime;
     }
 
-    public String getMeetingDate() {
+    public Date getMeetingDate() {
         return meetingDate;
     }
 
-    public void setMeetingDate(String meetingDate) {
+    public void setMeetingDate(Date meetingDate) {
         this.meetingDate = meetingDate;
     }
 

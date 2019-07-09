@@ -101,7 +101,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                         MeetingModel model = realm.createObject(MeetingModel.class, meetingId);
                         model.setMeetingName(meetingModel.getMeetingName());
                         model.setMeetingInformation(meetingModel.getMeetingInformation());
-                        model.setMeetingDate(String.valueOf(meetingDate));
+                        model.setMeetingDate(meetingDate);
                         model.setMeetingTime(meetingTime);
 
                         if (AddMeetingActivity.userLocation) {

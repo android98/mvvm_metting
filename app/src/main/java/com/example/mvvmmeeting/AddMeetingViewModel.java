@@ -33,8 +33,7 @@ public class AddMeetingViewModel extends ViewModel {
 
     public void OnClick(){
         MeetingModel meetingModel = new MeetingModel(meetingName.getValue(),
-                meetingInformation.getValue(),
-                meetingDate.getValue());
+                meetingInformation.getValue());
         meetingModelMutableLiveData.setValue(meetingModel);
     }
 

@@ -51,16 +51,7 @@
                     android:textSize="16dp" />
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:paddingLeft="18dp"
-                    android:paddingRight="18dp"
-                    android:src="@drawable/ic_searching_white" />
+
 
             </RelativeLayout>
 
