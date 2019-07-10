@@ -47,21 +47,9 @@
                 android:id="@+id/meetingName"
                 android:text="@{model.meetingName}"
                 android:textColor="@color/colorBlack"
-                android:textSize="16dp" />
+                android:textSize="20sp" />
 
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="18dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="18dp"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:padding="5dp"
-                android:src="@drawable/ic_vertical_dots"
-                android:tint="@color/colorGrayDarkIcon" />
 
         </RelativeLayout>
 
@@ -94,8 +82,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="2dp"
+                    android:inputType="date"
                     android:text="@{@string/format(model.meetingDate)}"
-                    android:textSize="12dp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -108,7 +97,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="16dp"
                 android:text="@{model.meetingTime}"
-                android:textSize="12dp" />
+                android:textSize="20sp"/>
 
             <ImageView
                 android:layout_width="16dp"
@@ -118,23 +107,7 @@
                 android:src="@drawable/ic_clock"
                 android:tint="@color/colorGrayIcon" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_star"
-                    android:tint="@color/colorGrayDarkIcon" />
-
-            </LinearLayout>
 
         </LinearLayout>
 

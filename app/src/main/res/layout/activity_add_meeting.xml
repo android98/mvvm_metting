@@ -78,8 +78,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusableInTouchMode="true"
-                        android:textSize="18dp"
                         android:fontFamily="@string/type_image"
+                        android:textSize="22sp"
                         android:hint="عنوان جلسه"
                         android:paddingRight="10dp">
 
@@ -89,7 +89,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="@={AddMeeting.meetingName}"
-                            android:textSize="16dp" />
+                            android:textSize="20sp" />
 
 
                     </android.support.design.widget.TextInputLayout>
@@ -133,7 +133,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:hint="تاریخ شروع جلسه"
-                            android:textSize="18dp"
+                            android:textSize="22sp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="12dp" />
 
@@ -148,6 +148,7 @@
                         android:layout_marginLeft="18dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginRight="18dp"
+                        android:textSize="20sp"
                         android:layout_marginBottom="12dp" />
                 </LinearLayout>
 
@@ -167,6 +168,7 @@
                     android:id="@+id/btnGetTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layoutDirection="rtl"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:orientation="vertical">
@@ -189,7 +191,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="12dp"
-                            android:textSize="18dp"
+                            android:textSize="22sp"
                             android:text="ساعت شروع جلسه" />
 
                     </LinearLayout>
@@ -200,6 +202,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="18dp"
                         android:layout_marginTop="8dp"
+                        android:textSize="20sp"
                         android:layout_marginRight="18dp"
                         android:layout_marginBottom="12dp" />
 
@@ -245,7 +248,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="12dp"
-                            android:textSize="18dp"
+                            android:textSize="22sp"
                             android:text="شرکت کنندگان" />
 
                     </LinearLayout>
@@ -256,6 +259,7 @@
                         android:layout_marginLeft="18dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginRight="18dp"
+                        android:textSize="20sp"
                         android:layout_marginBottom="12dp" />
 
                 </LinearLayout>
@@ -290,7 +294,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="16sp"
+                                android:textSize="20sp"
                                 android:text="موقعیت مکان را بر روی نقشه مشخص کنید"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
@@ -319,8 +323,7 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:hint="سایر اطلاعات مربوطه"
+                    android:textSize="22sp"                    android:hint="سایر اطلاعات مربوطه"
                     android:focusableInTouchMode="true"
                     android:padding="10dp">
 
@@ -330,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="@={AddMeeting.meetingInformation}"
-                        android:textSize="16dp" />
+                        android:textSize="20sp" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -349,7 +352,7 @@
 
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
@@ -358,7 +361,7 @@
                     android:text="تایید"
                     android:onClick="@{()-> AddMeeting.OnClick()}"
                     android:textColor="@color/colorWhite"
-                    android:textSize="16sp" />
+                    android:textSize="25sp" />
 
 
             </android.support.v7.widget.CardView>

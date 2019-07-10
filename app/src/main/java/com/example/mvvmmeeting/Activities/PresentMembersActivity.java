@@ -44,6 +44,8 @@ public class PresentMembersActivity extends AppCompatActivity {
     Recycler_Adapter_Present_Members adapterMembers;
     LinearLayoutManager managerMembers;
 
+    public int parentIdd = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,9 @@ public class PresentMembersActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        int parentId = intent.getIntExtra("parentId", -1);
+        Bundle extras = intent.getExtras();
+        parentIdd = extras.getInt("parentId");
+
 
         getContactFromRealm();
 
@@ -113,10 +117,11 @@ public class PresentMembersActivity extends AppCompatActivity {
         txtNoMember = findViewById(R.id.txtNoMember);
 
         Realm realm = Realm.getDefaultInstance();
-        members = realm.where(MemberModel.class).equalTo("parentId", parentId).findAll();
+        members = realm.where(MemberModel.class).equalTo("parentId", parentIdd).findAll();
+
 
         for (int i = 0; i < members.size(); i++) {
-            Log.i("test123", "parentId:" + members.get(i).getParentId() + " name:" + members.get(i).getMemberName() + " number:" + members.get(i).getMemberNumber());
+            Log.i("test1۱23", "parentIdd:" + members.get(i).getParentId() + " name:" + members.get(i).getMemberName() + " number:" + members.get(i).getMemberNumber());
         }
 
         if (members.size() > 0) {
@@ -129,13 +134,13 @@ public class PresentMembersActivity extends AppCompatActivity {
         }
 
 
-       /* btnBack = findViewById(R.id.btnBack);
+        btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
-        });*/
+        });
     }
 
 
@@ -143,7 +148,8 @@ public class PresentMembersActivity extends AppCompatActivity {
 
         recyclerMembers = findViewById(R.id.recyclerMembers);
         managerMembers = new LinearLayoutManager(PresentMembersActivity.this, LinearLayoutManager.VERTICAL, false);
-        adapterMembers = new Recycler_Adapter_Present_Members(PresentMembersActivity.this, members, members.get(0).getParentId());
+        assert members.get(0) != null;
+        adapterMembers = new Recycler_Adapter_Present_Members(PresentMembersActivity.this, members);
 
         recyclerMembers.setHasFixedSize(true);
         recyclerMembers.setLayoutManager(managerMembers);
@@ -324,7 +330,7 @@ public class PresentMembersActivity extends AppCompatActivity {
             @Override
             public void execute(Realm realm) {
                 MemberModel model = realm.createObject(MemberModel.class,memberId);
-                model.setParentId(parentId);
+                model.setParentId(parentIdd);
                 model.setMemberName(name);
                 model.setMemberNumber(number);
                 model.setMemberPeresent(false);

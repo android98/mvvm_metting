@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     public LinearLayout btnGetDate, btnGetTime;
     public TextView txtShowDate, txtShowTime;
+    public ImageView btnBack;
 
     public Date meetingDate = null;
     public String meetingTime = "";
@@ -63,6 +65,18 @@ public class AddMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
 
+
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddMeetingActivity.this, MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         Utilities.getPermission(AddMeetingActivity.this);
 
@@ -79,19 +93,12 @@ public class AddMeetingActivity extends AppCompatActivity {
         getUserLocation();
         getLocation();
         getMembers();
-        AddMeeting();
 
 
         model.getMeetingModelLiveData().observe(this, new Observer<MeetingModel>() {
             @Override
             public void onChanged(@Nullable final MeetingModel meetingModel) {
 
-
-                Toast.makeText(AddMeetingActivity.this, "Start : "
-                                + meetingModel.getMeetingName() + "     " +
-                                meetingModel.getMeetingInformation() + meetingTime + "    " + meetingDate
-
-                        , Toast.LENGTH_SHORT).show();
 
                 Realm realm = Realm.getDefaultInstance();
                 final int meetingId = getNextKey(realm);
@@ -152,9 +159,7 @@ public class AddMeetingActivity extends AppCompatActivity {
         });
     }
 
-    public void AddMeeting() {
 
-    }
 
     private int getNextKey(Realm realm) {
         try {
@@ -275,13 +280,14 @@ public class AddMeetingActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+  /*  @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(AddMeetingActivity.this,MainActivity.class);
         intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
         finish();
         startActivity(intent);
-    }
+    }*/
+
 
 }

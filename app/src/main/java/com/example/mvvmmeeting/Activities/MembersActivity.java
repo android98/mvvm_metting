@@ -30,6 +30,8 @@ import com.example.mvvmmeeting.Recycler_Adapter_Members;
 import com.example.mvvmmeeting.MemberModel;
 import com.example.mvvmmeeting.R;
 
+import java.lang.reflect.Member;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -57,28 +59,11 @@ public class MembersActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         parentId = intent.getIntExtra("parentId", -1);
-
+        Log.d("parentid", "onCreate: "+parentId);
         getContactFromRealm();
         AddingMember();
 
 
-      /*  recyclerMembers = findViewById(R.id.recyclerMembers);
-        managerMembers = new LinearLayoutManager(
-                MembersActivity.this, LinearLayout.VERTICAL, false
-        );
-        recycler_adapter_members = new Recycler_Adapter_Members(
-                MembersActivity.this
-                , members, members.get(0).getParentId());
-        recyclerMembers.setHasFixedSize(true);
-        recyclerMembers.setLayoutManager(managerMembers);
-        recyclerMembers.setAdapter(recycler_adapter_members);*/
-        btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
     }
 
@@ -91,7 +76,6 @@ public class MembersActivity extends AppCompatActivity {
                 final Dialog dialog = new Dialog(MembersActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.custom_dialog_add_member);
-
 
                 TextView btnFromContact = dialog.findViewById(R.id.btnFromContact);
                 TextView btnManually= dialog.findViewById(R.id.btnManually);
@@ -225,9 +209,12 @@ public class MembersActivity extends AppCompatActivity {
         }
 
         //mContactName = result;
-        Log.i("test123","result:"+result.toString() );
+/*        Log.i("test123","result:"+result.toString() );
         Log.i("test123","number:"+number );
         Log.i("test123","number:"+mobileNumber );
+        Log.i("test123","result:"+result.toString() );
+        Log.i("test123","number:"+number );
+        Log.i("test123","number:"+mobileNumber );*/
 
 
         boolean isExist = false;
@@ -308,6 +295,8 @@ public class MembersActivity extends AppCompatActivity {
                 recyclerMembers.setHasFixedSize(true);
                 recyclerMembers.setLayoutManager(managerMembers);
                 recyclerMembers.setAdapter(recycler_adapter_members);
+                recycler_adapter_members.notifyDataSetChanged();
+                Toast.makeText(MembersActivity.this, "Updated", Toast.LENGTH_SHORT).show();
             }
         }, new Realm.Transaction.OnError() {
             @Override
@@ -335,9 +324,7 @@ public class MembersActivity extends AppCompatActivity {
             recyclerMembers.setVisibility(View.VISIBLE);
             managerMembers = new LinearLayoutManager(
                     MembersActivity.this, LinearLayout.VERTICAL, false);
-            recycler_adapter_members = new Recycler_Adapter_Members(
-                    MembersActivity.this
-                    , members, members.get(0).getParentId());
+            recycler_adapter_members = new Recycler_Adapter_Members(MembersActivity.this, members, members.get(0).getParentId());
             recyclerMembers.setHasFixedSize(true);
             recyclerMembers.setLayoutManager(managerMembers);
             recyclerMembers.setAdapter(recycler_adapter_members);
@@ -359,14 +346,6 @@ public class MembersActivity extends AppCompatActivity {
         } catch (ArrayIndexOutOfBoundsException e) {
             return 0;
         }
-    }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(MembersActivity.this,MainActivity.class);
-        intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-        finish();
-        startActivity(intent);
     }
 
 }

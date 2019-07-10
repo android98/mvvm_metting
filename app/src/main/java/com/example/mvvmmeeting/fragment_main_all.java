@@ -18,10 +18,6 @@ import android.widget.Toast;
 
 import com.example.mvvmmeeting.databinding.FragmentFragmentMainAllBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
@@ -32,7 +28,6 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 public class fragment_main_all extends Fragment {
 
     private FragmentFragmentMainAllBinding binding;
-    private Context context;
 
 
     MeetingModel archieMeeting = new MeetingModel();
@@ -42,20 +37,12 @@ public class fragment_main_all extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_fragment_main_all, container, false);
-
-
         Realm realm = Realm.getDefaultInstance();
         RealmResults<MeetingModel> results = realm.where(MeetingModel.class).findAll();
-
         Recycler_Adapter_Show_Meeting meeting = new Recycler_Adapter_Show_Meeting(results
                 , getActivity());
         binding.setAdapter(meeting);
-
-
         Recycler_Adapter_Show_Meeting adapter = binding.getAdapter();
-
-        Log.d("biggg", "onCreateView: " + "Salammmmmm");
-
         return binding.getRoot();
 
     }

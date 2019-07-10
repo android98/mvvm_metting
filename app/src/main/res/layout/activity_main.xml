@@ -29,7 +29,6 @@
         android:layoutDirection="rtl"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        android:layout_marginTop="50dp"
         app:menu="@menu/activity_main_drawer" >
 
 

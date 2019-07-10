@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
-                android:text="بررسی پروژه اندروید"
+                android:text="بررسی جزییات جلسه"
                 android:layout_toLeftOf="@+id/btnBack"
                 android:textSize="14dp"
                 android:textColor="@color/colorWhite"/>
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:hint="عنوان جلسه"
-                    android:textSize="12sp" />
+                    android:textSize="20sp" />
 
 
             </android.support.design.widget.TextInputLayout>
@@ -124,6 +124,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
+                        android:textSize="20sp"
                         android:text="تاریخ شروع جلسه" />
 
 
@@ -136,6 +137,7 @@
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="18dp"
+                    android:textSize="20sp"
                     android:layout_marginBottom="12dp" />
 
             </LinearLayout>
@@ -182,6 +184,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
+                        android:textSize="20sp"
                         android:text="تاریخ پایان جلسه" />
 
 
@@ -193,6 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="8dp"
+                    android:textSize="20sp"
                     android:layout_marginRight="18dp"
                     android:layout_marginBottom="12dp" />
 
@@ -215,6 +219,7 @@
             <LinearLayout
                 android:id="@+id/btnGetTime"
                 android:layout_width="match_parent"
+                android:layoutDirection="rtl"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
@@ -239,6 +244,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="20sp"
                         android:layout_marginRight="12dp"
                         android:text="ساعت شروع جلسه" />
 
@@ -249,6 +255,7 @@
                     android:id="@+id/txtShowTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="20sp"
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="18dp"
@@ -275,6 +282,7 @@
             <LinearLayout
                 android:id="@+id/btnGetClossingTime"
                 android:layout_width="match_parent"
+                android:layoutDirection="rtl"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
@@ -285,6 +293,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:textDirection="rtl"
                     android:layout_marginRight="18dp"
                     android:layoutDirection="rtl"
                     android:orientation="horizontal">
@@ -299,6 +308,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
+                        android:textSize="20sp"
                         android:text="ساعت پایان جلسه" />
 
 
@@ -312,6 +322,7 @@
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="18dp"
+                    android:textSize="20sp"
                     android:layout_marginBottom="12dp" />
 
             </LinearLayout>
@@ -356,6 +367,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="20sp"
                         android:layout_marginRight="12dp"
                         android:text="شرکت کنندگان" />
 
@@ -369,6 +381,7 @@
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="18dp"
+                    android:textSize="20sp"
                     android:layout_marginBottom="12dp" />
 
             </LinearLayout>
@@ -383,41 +396,6 @@
             android:layout_marginTop="18dp"
             android:elevation="4dp">
 
-
-            <FrameLayout
-                android:id="@+id/frameShowMap"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="30dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/google" />
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="موقعیت مکان را بر روی نقشه مشخص کنید"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-
-                </RelativeLayout>
-
-
-            </FrameLayout>
 
 
         </RelativeLayout>
@@ -438,6 +416,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:padding="10dp"
                 android:focusableInTouchMode="true">
 
@@ -447,7 +426,7 @@
                     android:layout_height="wrap_content"
                     android:hint="سایر اطلاعات مربوطه"
                     android:gravity="right"
-                    android:textSize="12sp"/>
+                    android:textSize="20sp" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -490,6 +469,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ضبط صدا"
+                android:textSize="20sp"
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:layout_marginRight="16sp"/>
@@ -540,6 +520,7 @@
                 android:layout_height="match_parent"
                 android:text="ضمیمه کردن فایل"
                 android:layout_alignParentRight="true"
+                android:textSize="20sp"
                 android:gravity="center_vertical"
                 android:layout_marginRight="16sp"/>
 
@@ -586,6 +567,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="ضمیمه کردن تصاویر"
+                android:textSize="20sp"
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:layout_marginRight="16sp"/>
@@ -633,6 +615,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="اقدامات"
+                android:textSize="20sp"
                 android:layout_alignParentRight="true"
                 android:gravity="center_vertical"
                 android:layout_marginRight="16sp"/>

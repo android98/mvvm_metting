@@ -55,9 +55,7 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
     customView.binding.btnMeetingDetails.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            /*Intent intent = new Intent(, MeetingDetailsActivity.class);
-            intent.putExtra("meeting_id", meetingModel.getMeetingId());
-            context.startActivity(intent);*/
+
             Log.d("Clicked", "Clicked: ");
             Intent intent = new Intent(context, MeetingDetailsActivity.class);
             intent.putExtra("orderid", meetingModel.getMeetingId());
@@ -66,9 +64,6 @@ public class Recycler_Adapter_Show_Meeting extends RecyclerView.Adapter
         }
     });
 
-
-
-        //customView.viewDataBinding.setVariable(BR.model, meetingModel);
 
     }
 

@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,6 @@ import android.widget.TextView;
 
 import com.example.mvvmmeeting.Adapters.ViewPagerAdapter;
 import com.example.mvvmmeeting.fragment_main_all;
-import com.example.mvvmmeeting.Fragments.fragment_main_favorites;
 import com.example.mvvmmeeting.R;
 
 public class MainActivity extends AppCompatActivity
@@ -33,11 +30,8 @@ public class MainActivity extends AppCompatActivity
 
     ImageView btnMenu;
     FloatingActionButton btnAdd;
-    RecyclerView mainRecycler;
-    LinearLayoutManager mainManager;
     ViewPager vPager;
     TabLayout tabLayout;
-    ImageView imgDrawer;
 
 
     @Override
@@ -87,7 +81,6 @@ public class MainActivity extends AppCompatActivity
     private void setUpViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new fragment_main_all());
-        adapter.addFragment(new fragment_main_favorites());
 
         vPager.setAdapter(adapter);
 
@@ -104,12 +97,6 @@ public class MainActivity extends AppCompatActivity
         tabLayout.getTabAt(0).setCustomView(tabLinearlayoutAll);
 
 
-        LinearLayout tabLinearLayoutFavorite = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.tab_layout_item, null);
-        TextView txtfavorite = tabLinearLayoutFavorite.findViewById(R.id.txtTabLayout);
-        ImageView imgfavorite = tabLinearLayoutFavorite.findViewById(R.id.imgTabLayout);
-        txtfavorite.setText("علاقه ها ");
-        imgfavorite.setImageResource(R.drawable.ic_star);
-        tabLayout.getTabAt(1).setCustomView(tabLinearLayoutFavorite);
     }
 
 
@@ -125,7 +112,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -156,18 +142,15 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, AddMeetingActivity.class);
             startActivity(intent);
 
-        } /*else if (id == R.id.nav_aboutus) {
+        } else if (id == R.id.nav_aboutus) {
+            Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_exit) {
+            finish();
+        }
 
-        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
-        }*/
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
