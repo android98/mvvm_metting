@@ -13,6 +13,7 @@
         android:text="از مخاطبین"
         android:paddingTop="18dp"
         android:paddingBottom="18dp"
+        android:textSize="20sp"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:paddingRight="18dp"/>
@@ -29,9 +30,9 @@
         android:id="@+id/btnManually"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:gravity="right"
         android:text="به صورت دستی"
-        android:textSize="14dp"
         android:paddingTop="18dp"
         android:paddingBottom="18dp"
         android:background="?android:attr/selectableItemBackground"

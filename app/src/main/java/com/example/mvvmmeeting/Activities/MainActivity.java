@@ -142,10 +142,6 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, AddMeetingActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_aboutus) {
-            Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
-            startActivity(intent);
-
         } else if (id == R.id.nav_exit) {
             finish();
         }

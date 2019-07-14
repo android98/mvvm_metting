@@ -53,6 +53,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -119,8 +120,8 @@ public class ActionsActivity extends AppCompatActivity {
 
         GetJalaseName();
 
-        getActionsFromRealm();
         injectTopToolbar();
+        getActionsFromRealm();
     }
 
 
@@ -337,7 +338,9 @@ public class ActionsActivity extends AppCompatActivity {
                                 //btn save
                                 btnSave.setOnClickListener(new View.OnClickListener() {
                                     @Override
+
                                     public void onClick(View view) {
+
 
                                         Realm realm = Realm.getDefaultInstance();
                                         final int actionId = getNextKey(realm);
@@ -356,6 +359,9 @@ public class ActionsActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess() {
                                                 Log.i("test123", "description is added to the realm db");
+                                                injectTopToolbar();
+                                                getActionsFromRealm();
+                                                injectRecyclerView();
                                             }
                                         }, new Realm.Transaction.OnError() {
                                             @Override
@@ -397,7 +403,7 @@ public class ActionsActivity extends AppCompatActivity {
         }
     }
 
-    private void Save() {
+    private void Save()  {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<ActionModel> results = realm.where(ActionModel.class).equalTo("parentId", parentId).findAll();
         if (results.size() > 0) {
@@ -424,13 +430,12 @@ public class ActionsActivity extends AppCompatActivity {
                 table.addCell(FileInf.get(i).getActionDescription());
                 table.addCell(FileInf.get(i).getActionPerformerName());
                 table.addCell(FileInf.get(i).getActionPerformerNumber());
-                table.addCell(String.valueOf(FileInf.get(i).getActionDate()));
+                table.addCell(String.valueOf((FileInf.get(i).getActionDate())));
             }
             try {
                 PdfWriter.getInstance(document,
                         new FileOutputStream(Environment.getExternalStorageDirectory()
-                                + "/" + fileName + ".pdf"
-                        ));
+                                + "/" + fileName + ".pdf"));
 
                 document.open();
                 document.add(paragraph);
@@ -1033,7 +1038,7 @@ public class ActionsActivity extends AppCompatActivity {
                         .PERMISSION_GRANTED) {
                     Save();
                 } else {
-                    Toast.makeText(this, "PEemsiion Denided ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "عدم دسترسی ", Toast.LENGTH_SHORT).show();
                 }
         }
         //super.onRequestPermissionsResult(requestCode, permissions, grantResults);

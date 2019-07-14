@@ -391,13 +391,10 @@
 
         <RelativeLayout
             android:id="@+id/relativeMap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="18dp"
             android:elevation="4dp">
-
-
-
         </RelativeLayout>
 
 

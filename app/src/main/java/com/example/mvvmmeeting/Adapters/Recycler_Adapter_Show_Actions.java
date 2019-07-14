@@ -83,7 +83,7 @@ public class Recycler_Adapter_Show_Actions extends
                 public void onClick(View view) {
 
                     ActionsActivity activity = new ActionsActivity();
-                    activity.updateActionItems(activity,info);
+                    //activity.updateActionItems(activity,info);
                     notifyDataSetChanged();
                 }
             });

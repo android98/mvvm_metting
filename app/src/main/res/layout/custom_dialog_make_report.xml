@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:text="نام فایل برای ذخیره ؟ "
-            android:textSize="18dp"
+            android:textSize="20sp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="18dp"
             android:layout_height="wrap_content" />
@@ -23,7 +23,7 @@
         <EditText
             android:layout_marginLeft="18dp"
             android:layout_width="match_parent"
-            android:textSize="18dp"
+            android:textSize="20sp"
             android:id="@+id/edt_fineName"
             android:layout_marginTop="25dp"
             android:layout_marginRight="18dp"
@@ -36,8 +36,7 @@
         android:layout_height="wrap_content"
         android:text="تهیه نسخه PDF ؟  "
         android:layout_gravity="center"
-        android:textSize="18sp"
-        android:layout_marginTop="25dp"
+        android:textSize="20sp"        android:layout_marginTop="25dp"
         android:layout_marginRight="18dp" />
 
 
@@ -56,8 +55,7 @@
             android:id="@+id/btnYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="بله"
+            android:textSize="20sp"            android:text="بله"
             android:gravity="center"
             android:background="?android:attr/selectableItemBackground"
             android:layout_marginLeft="22dp"
@@ -73,8 +71,7 @@
             android:id="@+id/btnNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="خیر"
+            android:textSize="20sp"            android:text="خیر"
             android:gravity="center"
             android:background="?android:attr/selectableItemBackground"
             android:layout_marginLeft="18dp"

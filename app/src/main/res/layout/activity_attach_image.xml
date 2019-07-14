@@ -40,7 +40,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btnBack"
                 android:layout_marginRight="8dp"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textColor="@color/colorWhite"
                 android:text="ضمیمه کردن تصاویر"/>
 

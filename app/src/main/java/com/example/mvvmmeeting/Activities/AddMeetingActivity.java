@@ -11,9 +11,11 @@ import android.location.Location;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -47,6 +49,9 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     public Date meetingDate = null;
     public String meetingTime = "";
+    public EditText edtMeetingName;
+
+
     public PersianCalendar calendar;
     RelativeLayout relativeMap;
     LinearLayout btnGetMembers;
@@ -60,10 +65,17 @@ public class AddMeetingActivity extends AppCompatActivity {
     public static boolean userLocation = false;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
+
+        edtMeetingName = findViewById(R.id.edtMeetingName);
+
+
+
+
 
 
         btnBack = findViewById(R.id.btnBack);
@@ -96,47 +108,69 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 
         model.getMeetingModelLiveData().observe(this, new Observer<MeetingModel>() {
+
             @Override
             public void onChanged(@Nullable final MeetingModel meetingModel) {
 
 
-                Realm realm = Realm.getDefaultInstance();
-                final int meetingId = getNextKey(realm);
-                realm.executeTransactionAsync(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        MeetingModel model = realm.createObject(MeetingModel.class, meetingId);
-                        model.setMeetingName(meetingModel.getMeetingName());
-                        model.setMeetingInformation(meetingModel.getMeetingInformation());
-                        model.setMeetingDate(meetingDate);
-                        model.setMeetingTime(meetingTime);
 
-                        if (AddMeetingActivity.userLocation) {
-                            model.setMeetinglat(AddMeetingActivity.meetingLat);
-                            model.setMeetingLng(AddMeetingActivity.meetingLng);
+                    Realm realm = Realm.getDefaultInstance();
+                    final int meetingId = getNextKey(realm);
+                    realm.executeTransactionAsync(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+
+                            MeetingModel model = realm.createObject(MeetingModel.class, meetingId);
+                            model.setMeetingName(meetingModel.getMeetingName());
+                            model.setMeetingInformation(meetingModel.getMeetingInformation());
+                            model.setMeetingDate(meetingDate);
+                            model.setMeetingTime(meetingTime);
+
+
+                            if (meetingModel.getMeetingName().isEmpty()) {
+                                Toast.makeText(AddMeetingActivity.this, "Error :( ", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            if (meetingModel.getMeetingInformation().isEmpty()) {
+                                Toast.makeText(AddMeetingActivity.this, "Error :( ", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if (meetingDate==null) {
+                                Toast.makeText(AddMeetingActivity.this, "Error :( ", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if (meetingTime==null) {
+                                Toast.makeText(AddMeetingActivity.this, "Error :( ", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            if (AddMeetingActivity.userLocation) {
+                                model.setMeetinglat(AddMeetingActivity.meetingLat);
+                                model.setMeetingLng(AddMeetingActivity.meetingLng);
+                            }
+                            Log.d("abdc", "execute: " + "ok");
                         }
-                        Log.d("abdc", "execute: " + "ok");
-                    }
-                }, new Realm.Transaction.OnSuccess() {
-                    @Override
-                    public void onSuccess() {
-                        Log.d("abdc", "execute: " + "onSucceesss");
-                        Toast.makeText(AddMeetingActivity.this, "درج شد ", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AddMeetingActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        finish();
-                        startActivity(intent);
-                    }
-                }, new Realm.Transaction.OnError() {
-                    @Override
-                    public void onError(Throwable error) {
-                        Log.d("abdc", "execute: " + "On Errroooor");
-                        Toast.makeText(AddMeetingActivity.this, "مشکلی به وجود امده است ! ", Toast.LENGTH_SHORT).show();
-                        error.printStackTrace();
-                    }
-                });
+                    }, new Realm.Transaction.OnSuccess() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d("abdc", "execute: " + "onSucceesss");
+                            Toast.makeText(AddMeetingActivity.this, "درج شد ", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AddMeetingActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            finish();
+                            startActivity(intent);
+                        }
+                    }, new Realm.Transaction.OnError() {
+                        @Override
+                        public void onError(Throwable error) {
+                            Log.d("abdc", "execute: " + "On Errroooor");
+                            Toast.makeText(AddMeetingActivity.this, "اطلاعات ورودی را تکمیل کنید ", Toast.LENGTH_SHORT).show();
+                            error.printStackTrace();
+                        }
+                    });
+                }
 
-            }
         });
 
 
