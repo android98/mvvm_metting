@@ -36,7 +36,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         return imagePaths.size();
     }
 
-//
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
@@ -67,8 +67,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
         ((ViewPager) container).addView(inflate);
         return inflate;
     }
-
-
 
 
     @Override
