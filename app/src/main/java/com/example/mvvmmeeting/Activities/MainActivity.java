@@ -96,8 +96,6 @@ public class MainActivity extends AppCompatActivity
         txtall.setText("کل");
         imgAll.setImageResource(R.drawable.ic_notes);
         tabLayout.getTabAt(0).setCustomView(tabLinearlayoutAll);
-        //Log.d(TAG, "setupIcons: ");
-        //Log.d(TAG, "setupIcons: ");
 
     }
 
