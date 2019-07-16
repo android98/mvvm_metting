@@ -83,6 +83,7 @@
                         android:paddingRight="10dp"
                         android:textSize="20sp">
 
+
                         <EditText
                             android:id="@+id/edtMeetingName"
                             android:layout_width="match_parent"
