@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity
         imgAll.setImageResource(R.drawable.ic_notes);
         tabLayout.getTabAt(0).setCustomView(tabLinearlayoutAll);
         //Log.d(TAG, "setupIcons: ");
+        //Log.d(TAG, "setupIcons: ");
 
     }
 
